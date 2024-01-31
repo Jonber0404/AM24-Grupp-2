@@ -14,6 +14,8 @@ public class JumpyBirb extends ApplicationAdapter {
 	Texture birdImage;
 	Rectangle bird;
 	OrthographicCamera camera;
+	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
+	private float velocity = 0; // Fågelns vertikala hastighet
 	
 	@Override
 	public void create () {
@@ -30,10 +32,24 @@ public class JumpyBirb extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		velocity += gravity; // Lägg till gravitationen till hastigheten
+		bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+
+		// Förhindra fågeln från att falla genom marken
+		if (bird.y < 0) {
+			bird.y = 0;
+			velocity = 0; // Stoppa ytterligare fall när fågeln når marken
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
+		}
+
+
+		// Resten av din render-kod...
 		ScreenUtils.clear(1, 0, 0, 1);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-
 		batch.begin();
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		batch.end();
