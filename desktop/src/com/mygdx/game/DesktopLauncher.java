@@ -13,6 +13,8 @@ public class DesktopLauncher {
 		new Lwjgl3Application(new JumpyBirb(), config);
 		System.out.println("testing");
 		System.out.println("Test 2");
+
 		System.out.println("Min branch");
+
 	}
 }
