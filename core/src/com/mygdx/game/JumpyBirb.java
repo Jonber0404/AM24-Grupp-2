@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,6 +37,13 @@ public class JumpyBirb extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		batch.end();
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			bird.y += 1000;
+		} else {
+			bird.y -= 4;
+		}
+
 	}
 	
 	@Override
