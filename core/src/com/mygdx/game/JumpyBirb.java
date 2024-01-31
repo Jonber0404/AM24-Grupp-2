@@ -47,7 +47,7 @@ public class JumpyBirb extends ApplicationAdapter {
 
 
 		// Resten av din render-kod...
-		ScreenUtils.clear(1, 0, 0, 1);
+		ScreenUtils.clear(0, 0, 0, 1);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
