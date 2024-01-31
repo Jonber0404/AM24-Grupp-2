@@ -54,12 +54,6 @@ public class JumpyBirb extends ApplicationAdapter {
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		batch.end();
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-			bird.y += 1000;
-		} else {
-			bird.y -= 4;
-		}
-
 	}
 	
 	@Override
