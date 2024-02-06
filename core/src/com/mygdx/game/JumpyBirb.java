@@ -20,9 +20,11 @@ public class JumpyBirb extends ApplicationAdapter {
 	OrthographicCamera camera;
 	Texture birdImage;
 	Texture pillarImage;
+	Texture pillarImageUpsideDown;
 	Rectangle bird;
 
-	private Array<Rectangle> pillars;
+	private Array<Rectangle> underPillars;
+	private Array<Rectangle> overPillars;
 	private long spawnTime;
 
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
@@ -36,15 +38,18 @@ public class JumpyBirb extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		birdImage = new Texture("pixlybird.png");
 		pillarImage = new Texture("pillar.png");
+
+
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 
-		bird = new Rectangle(800 / 2 - 64 / 2, 480 / 2, birdImage.getWidth(), birdImage.getHeight());
+		bird = new Rectangle(800 / 4 - 64 / 2, 480 / 2, birdImage.getWidth(), birdImage.getHeight());
 
 		float scale = 0.1f; // Adjust the scale factor as needed
 		bird.setSize(bird.width * scale, bird.height * scale);
 
-		pillars = new Array<Rectangle>();
+		overPillars = new Array<Rectangle>();
+		underPillars = new Array<Rectangle>();
 		spawnPillars();
 
 	}
@@ -70,7 +75,12 @@ public class JumpyBirb extends ApplicationAdapter {
 			timeSinceLastSpawn = 0.0f;
 		}
 
-		for (Iterator<Rectangle> iter = pillars.iterator(); iter.hasNext(); ) {
+		for (Iterator<Rectangle> iter = underPillars.iterator(); iter.hasNext(); ) {
+			Rectangle pillar = iter.next();
+			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
+			if(pillar.x + 64 < 0) iter.remove();
+		}
+		for (Iterator<Rectangle> iter = overPillars.iterator(); iter.hasNext(); ) {
 			Rectangle pillar = iter.next();
 			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
 			if(pillar.x + 64 < 0) iter.remove();
@@ -84,23 +94,28 @@ public class JumpyBirb extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
-		for(Rectangle pillar: pillars) {
+		for(Rectangle pillar: underPillars) {
 			batch.draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
+		}
+		for(Rectangle pillar: overPillars) {
+			batch.draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
 		}
 		batch.end();
 
 	}
 
 	private void spawnPillars(){
-		int position = MathUtils.random(100, 380);
+		int position = MathUtils.random(80, 320);
 		float scale = 0.2f;
 		Rectangle pillarUnder = new Rectangle
 				(800, position -400, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
 
-		pillars.add(pillarUnder);
+		underPillars.add(pillarUnder);
 
 		Rectangle pillarOver = new Rectangle
-				(800, position - 200, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+				(800, position + 140, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+
+		overPillars.add(pillarOver);
 
 	}
 	

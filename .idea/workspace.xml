@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="sout my branch">
-      <change afterPath="$PROJECT_DIR$/assets/pillar.png" afterDir="false" />
+    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="Added the lower pillar generation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/badlogic.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,6 +118,13 @@
       <updated>1706614023715</updated>
       <workItem from="1706626805350" duration="325000" />
     </task>
+    <task id="LOCAL−00001" summary="Added the lower pillar generation">
+      <created>1707212890403</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1707212890403</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +156,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sout my branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="sout my branch" />
+    <MESSAGE value="Added the lower pillar generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the lower pillar generation" />
   </component>
 </project>
