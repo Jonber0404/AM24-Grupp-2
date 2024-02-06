@@ -20,7 +20,7 @@ public class JumpyBirb extends ApplicationAdapter {
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
 
-	private List<Score> Highscores;
+	private List<Score> highscores;
 	private int score;
 	
 	@Override
@@ -35,7 +35,10 @@ public class JumpyBirb extends ApplicationAdapter {
 		float scale = 0.2f; // Adjust the scale factor as needed
 		bird.setSize(bird.width * scale, bird.height * scale);
 
-		Highscores = new ArrayList<>(10);
+		highscores = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			highscores.add(new Score("", 0));
+		}
 		score = 0;
 	}
 
@@ -71,7 +74,35 @@ public class JumpyBirb extends ApplicationAdapter {
 	public void updateScore() {
 		score += 1;
 	}
-	
+
+	/**
+	 * Anropas när spelaren dör.
+	 * Det här är en skiss som kan behöva ändras
+	 */
+	public void onDeath() {
+		if (score > highscores.get(9).score()) {
+			// Lägg till input för namn här...?
+			var placeholderName = "Bertil";
+			addHighScore(placeholderName);
+		}
+
+		score = 0;
+	}
+
+	/**
+	 * Anropas av onDeath(), lägger till ett score i highscore och tar bort alla scores som är inte är topp 10
+	 * @param name
+	 */
+	public void addHighScore(String name) {
+		for (int i = 0; i < 10; i++) {
+			if (score > highscores.get(i).score()) {
+				highscores.add(i, new Score(name, score));
+				highscores = highscores.subList(0, 10);
+				break;
+			}
+		}
+	}
+
 	@Override
 	public void dispose () {
 		batch.dispose();
