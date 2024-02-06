@@ -35,7 +35,7 @@ public class JumpyBirb extends ApplicationAdapter {
 	private float velocity = 0; // Fågelns vertikala hastighet
 
 	private List<Score> highscores;
-	private int score;
+
 
 	private float spawnInterval = 2.0f;
 	private float timeSinceLastSpawn = 0.0f;
@@ -107,7 +107,7 @@ public class JumpyBirb extends ApplicationAdapter {
 		for (Rectangle underPillar : underPillars) {
 			if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
 				if (timeSinceLastPoint >= pointInterval){
-					score++;
+					updateScore();
 					System.out.println(score);
 					timeSinceLastPoint = 0.0f;
 				}

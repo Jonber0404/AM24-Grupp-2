@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="Gravitation och hoppstyrka">
+    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="Added a supoptimal score system">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
     </list>
@@ -124,7 +124,13 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1707212890403</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="Added a supoptimal score system">
+      <created>1707215121513</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1707215121513</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +163,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sout my branch" />
     <MESSAGE value="Added the lower pillar generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the lower pillar generation" />
+    <MESSAGE value="Added a supoptimal score system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a supoptimal score system" />
   </component>
 </project>
