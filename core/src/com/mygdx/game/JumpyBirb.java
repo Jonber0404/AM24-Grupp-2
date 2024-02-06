@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JumpyBirb extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture birdImage;
@@ -16,6 +19,9 @@ public class JumpyBirb extends ApplicationAdapter {
 	OrthographicCamera camera;
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
+
+	private List<Score> Highscores;
+	private int score;
 	
 	@Override
 	public void create () {
@@ -28,6 +34,9 @@ public class JumpyBirb extends ApplicationAdapter {
 
 		float scale = 0.2f; // Adjust the scale factor as needed
 		bird.setSize(bird.width * scale, bird.height * scale);
+
+		Highscores = new ArrayList<>(10);
+		score = 0;
 	}
 
 	@Override
@@ -54,6 +63,13 @@ public class JumpyBirb extends ApplicationAdapter {
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		batch.end();
 
+	}
+
+	/**
+	 * Anropa denna metod varje gång spelaren tar sig förbi ett hinder
+	 */
+	public void updateScore() {
+		score += 1;
 	}
 	
 	@Override
