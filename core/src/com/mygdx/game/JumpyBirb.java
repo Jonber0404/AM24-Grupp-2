@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class JumpyBirb extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture birdImage;
+	Texture backgroundImage;
 	Rectangle bird;
 	OrthographicCamera camera;
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
@@ -20,11 +21,12 @@ public class JumpyBirb extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		backgroundImage = new Texture("background.jpg");
 		birdImage = new Texture("pixlybird.png");
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 1280, 720);
 
-		bird = new Rectangle(800 / 2 - 64 / 2, 480 / 2, birdImage.getWidth(), birdImage.getHeight());
+		bird = new Rectangle(1280 / 2 - 64 / 2, 720 / 2, birdImage.getWidth(), birdImage.getHeight());
 
 		float scale = 0.2f; // Adjust the scale factor as needed
 		bird.setSize(bird.width * scale, bird.height * scale);
@@ -51,8 +53,10 @@ public class JumpyBirb extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		batch.draw(backgroundImage, 0, 0, 1280, 720);
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		batch.end();
+
 
 	}
 	
