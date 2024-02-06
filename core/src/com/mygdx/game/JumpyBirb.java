@@ -22,6 +22,7 @@ public class JumpyBirb extends ApplicationAdapter {
 	Texture pillarImage;
 	Texture pillarImageUpsideDown;
 	Rectangle bird;
+	int score;
 
 	private Array<Rectangle> underPillars;
 	private Array<Rectangle> overPillars;
@@ -32,6 +33,9 @@ public class JumpyBirb extends ApplicationAdapter {
 
 	private float spawnInterval = 2.0f;
 	private float timeSinceLastSpawn = 0.0f;
+
+	private float pointInterval = 1.0f;
+	private float timeSinceLastPoint = 0.0f;
 	
 	@Override
 	public void create () {
@@ -52,6 +56,7 @@ public class JumpyBirb extends ApplicationAdapter {
 		underPillars = new Array<Rectangle>();
 		spawnPillars();
 
+		score = 0;
 	}
 
 	@Override
@@ -84,6 +89,18 @@ public class JumpyBirb extends ApplicationAdapter {
 			Rectangle pillar = iter.next();
 			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
 			if(pillar.x + 64 < 0) iter.remove();
+		}
+
+		timeSinceLastPoint += Gdx.graphics.getDeltaTime();
+		for (Rectangle underPillar : underPillars) {
+			if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
+				if (timeSinceLastPoint >= pointInterval){
+					score++;
+					System.out.println(score);
+					timeSinceLastPoint = 0.0f;
+				}
+
+			}
 		}
 
 

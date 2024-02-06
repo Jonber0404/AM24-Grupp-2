@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="Added the lower pillar generation">
+    <list default="true" id="b0dd4de6-cfbc-406f-b23d-801b530e6253" name="Changes" comment="Gravitation och hoppstyrka">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
     </list>
