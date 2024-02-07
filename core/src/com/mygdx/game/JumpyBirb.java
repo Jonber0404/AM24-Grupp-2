@@ -22,8 +22,12 @@ public class JumpyBirb extends ApplicationAdapter {
 	SpriteBatch batch;
 	OrthographicCamera camera;
 	Texture birdImage;
+
 	Texture pillarImage;
 	Texture pillarImageUpsideDown;
+
+	Texture backgroundImage;
+
 	Rectangle bird;
 	int score;
 
@@ -46,14 +50,15 @@ public class JumpyBirb extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		backgroundImage = new Texture("background.jpg");
 		birdImage = new Texture("pixlybird.png");
 		pillarImage = new Texture("pillar.png");
 
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 1280, 720);
 
-		bird = new Rectangle(800 / 4 - 64 / 2, 480 / 2, birdImage.getWidth(), birdImage.getHeight());
+		bird = new Rectangle(1280 / 2 - 64 / 2, 720 / 2, birdImage.getWidth(), birdImage.getHeight());
 
 		float scale = 0.1f; // Adjust the scale factor as needed
 		bird.setSize(bird.width * scale, bird.height * scale);
@@ -122,6 +127,7 @@ public class JumpyBirb extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		batch.draw(backgroundImage, 0, 0, 1280, 720);
 		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
 		for(Rectangle pillar: underPillars) {
 			batch.draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
@@ -130,6 +136,7 @@ public class JumpyBirb extends ApplicationAdapter {
 			batch.draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
 		}
 		batch.end();
+
 
 	}
 
@@ -171,15 +178,15 @@ public class JumpyBirb extends ApplicationAdapter {
 
 
 	private void spawnPillars(){
-		int position = MathUtils.random(80, 320);
+		int position = MathUtils.random(80, 600);
 		float scale = 0.2f;
 		Rectangle pillarUnder = new Rectangle
-				(800, position -400, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+				(1280, position -400, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
 
 		underPillars.add(pillarUnder);
 
 		Rectangle pillarOver = new Rectangle
-				(800, position + 140, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+				(1280, position + 140, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
 
 		overPillars.add(pillarOver);
 
@@ -189,6 +196,7 @@ public class JumpyBirb extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
+    backgroundImage.dispose();
 		birdImage.dispose();
 		pillarImage.dispose();
 	}
