@@ -5,10 +5,12 @@ import com.badlogic.gdx.Game;
 public class JumpyBirb extends Game {
 
     private GameScreen gameScreen;
+    private GameOverScreen gameOverScreen;
 
     @Override
     public void create() {
             gameScreen = new GameScreen(this);
-            setScreen(gameScreen);
+            gameOverScreen = new GameOverScreen(this);
+            setScreen(gameOverScreen);
     }
 }
