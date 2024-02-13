@@ -86,11 +86,6 @@ public class GameOverScreen implements Screen {
     }
 
 
-    /**
-     * Anropas av onDeath(), lägger till ett score i highscore och tar bort alla scores som är inte är topp 10
-     *
-     * @param name
-     */
     public void addHighScore(String name) {
         for (int i = 0; i < 10; i++) {
             if (jumpyBirb.getScore() > highscores.get(i).score()) {

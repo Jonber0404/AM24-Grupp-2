@@ -41,8 +41,6 @@ public class GameScreen implements Screen {
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
 
-	private List<Score> highscores;
-
 
 	private float spawnInterval = 2.0f;
 	private float timeSinceLastSpawn = 0.0f;
@@ -70,12 +68,6 @@ public class GameScreen implements Screen {
 
 		float scale = 0.1f; // Adjust the scale factor as needed
 		this.bird.setSize(bird.width * scale, bird.height * scale);
-
-		this.highscores = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			highscores.add(new Score("", 0));
-		}
-		this.score = 0;
 
 		this.overPillars = new Array<Rectangle>();
 		this.underPillars = new Array<Rectangle>();
@@ -128,8 +120,8 @@ public class GameScreen implements Screen {
 			for (Rectangle underPillar : underPillars) {
 				if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
 					if (timeSinceLastPoint >= pointInterval) {
-						updateScore();
-						System.out.println(score);
+						jumpyBirb.updateScore();
+						System.out.println(jumpyBirb.getScore());
 
 						timeSinceLastPoint = 0.0f;
 					}
@@ -198,44 +190,8 @@ public class GameScreen implements Screen {
 		extraLife = 1;
 		birdCrashed = true;
 		render(5);
+		jumpyBirb.setGameOver();
 
-
-	}
-
-
-	/**
-	 * Anropa denna metod varje gång spelaren tar sig förbi ett hinder
-	 */
-	public void updateScore() {
-		score += 1;
-	}
-
-	/**
-	 * Anropas när spelaren dör.
-	 * Det här är en skiss som kan behöva ändras
-	 */
-	public void onDeath() {
-		if (score > highscores.get(9).score()) {
-			// Lägg till input för namn här...?
-			var placeholderName = "Bertil";
-			addHighScore(placeholderName);
-		}
-
-		score = 0;
-	}
-
-	/**
-	 * Anropas av onDeath(), lägger till ett score i highscore och tar bort alla scores som är inte är topp 10
-	 * @param name
-	 */
-	public void addHighScore(String name) {
-		for (int i = 0; i < 10; i++) {
-			if (score > highscores.get(i).score()) {
-				highscores.add(i, new Score(name, score));
-				highscores = highscores.subList(0, 10);
-				break;
-			}
-		}
 	}
 
 
