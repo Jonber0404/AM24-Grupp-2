@@ -50,6 +50,11 @@ public class GameScreen implements Screen {
 
 	private JumpyBirb jumpyBirb;
 
+
+    private boolean movingPillars = false;
+    private boolean gravityEnabled = false;
+
+
 	public GameScreen(JumpyBirb jumpyBirb) {
 
 		this.jumpyBirb = jumpyBirb;
@@ -82,8 +87,18 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render (float delta) {
-		velocity += gravity; // Lägg till gravitationen till hastigheten
-		bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+		//velocity += gravity; // Lägg till gravitationen till hastigheten
+		//bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+
+		//Förhindra fågeln från att falla innan man trycker på Space.
+        if(gravityEnabled == true){
+            velocity += gravity; // Lägg till gravitationen till hastigheten
+            bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+        }
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            gravityEnabled = !gravityEnabled;   //this toggles gravity on from being off.
+            movingPillars = !movingPillars;     //this toggles the "pillars" from moving left.
+        }
 
 		// Förhindra fågeln från att falla genom marken
 		if (bird.y < 0) {
@@ -95,36 +110,45 @@ public class GameScreen implements Screen {
 			velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
 		}
 
-		timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
+        //Förhindra pellare från att spawn/röra sig åt vänster för än Spacebar har tryckts.
+        if (movingPillars == true) {
+            timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
+            if (timeSinceLastSpawn >= spawnInterval) {
+                spawnPillars();
+                timeSinceLastSpawn = 0.0f;
+            }
+
+
+        /*timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
 		if (timeSinceLastSpawn >= spawnInterval) {
 			spawnPillars();
 			timeSinceLastSpawn = 0.0f;
-		}
+		}*/
 
-		for (Iterator<Rectangle> iter = underPillars.iterator(); iter.hasNext(); ) {
-			Rectangle pillar = iter.next();
-			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
-			if(pillar.x + 64 < 0) iter.remove();
-		}
-		for (Iterator<Rectangle> iter = overPillars.iterator(); iter.hasNext(); ) {
-			Rectangle pillar = iter.next();
-			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
-			if(pillar.x + 64 < 0) iter.remove();
-		}
+            for (Iterator<Rectangle> iter = underPillars.iterator(); iter.hasNext(); ) {
+                Rectangle pillar = iter.next();
+                pillar.x -= 200 * Gdx.graphics.getDeltaTime();
+                if (pillar.x + 64 < 0) iter.remove();
+            }
+            for (Iterator<Rectangle> iter = overPillars.iterator(); iter.hasNext(); ) {
+                Rectangle pillar = iter.next();
+                pillar.x -= 200 * Gdx.graphics.getDeltaTime();
+                if (pillar.x + 64 < 0) iter.remove();
+            }
 
-		timeSinceLastPoint += Gdx.graphics.getDeltaTime();
-		for (Rectangle underPillar : underPillars) {
-			if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
-				if (timeSinceLastPoint >= pointInterval){
-					updateScore();
-					System.out.println(score);
-					timeSinceLastPoint = 0.0f;
-				}
+            timeSinceLastPoint += Gdx.graphics.getDeltaTime();
+            for (Rectangle underPillar : underPillars) {
+                if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
+                    if (timeSinceLastPoint >= pointInterval) {
+                        updateScore();
+                        System.out.println(score);
+                        timeSinceLastPoint = 0.0f;
+                    }
 
-			}
-		}
+                }
+            }
 
-
+        } //this is the point
 
 		// Resten av din render-kod...
 		ScreenUtils.clear(0, 0, 0, 1);
