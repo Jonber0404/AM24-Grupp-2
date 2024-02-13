@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
 
 	private float pointInterval = 1.0f;
 	private float timeSinceLastPoint = 0.0f;
+	private boolean birdCrashed = false;
 
 	private JumpyBirb jumpyBirb;
 
@@ -84,95 +85,92 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render (float delta) {
-		velocity += gravity; // Lägg till gravitationen till hastigheten
-		bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+		if(!birdCrashed) {
+			velocity += gravity; // Lägg till gravitationen till hastigheten
+			bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
 
-		// Förhindra fågeln från att falla genom marken
-		if (bird.y < 0) {
-			bird.y = 0;
-			velocity = 0; // Stoppa ytterligare fall när fågeln når marken
-		}
-
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-			velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
-		}
-
-		timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
-		if (timeSinceLastSpawn >= spawnInterval) {
-			spawnPillars();
-			timeSinceLastSpawn = 0.0f;
-		}
-
-		Iterator<Rectangle> iterUnder = underPillars.iterator();
-		while (iterUnder.hasNext()) {
-			Rectangle pillar = iterUnder.next();
-			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
-			if (pillar.x + 64 < 0) {
-				iterUnder.remove();
+			// Förhindra fågeln från att falla genom marken
+			if (bird.y < 0) {
+				bird.y = 0;
+				velocity = 0; // Stoppa ytterligare fall när fågeln når marken
 			}
-		}
 
-
-		Iterator<Rectangle> iterOver = overPillars.iterator();
-		while (iterOver.hasNext()) {
-			Rectangle pillar = iterOver.next();
-			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
-			if (pillar.x + 64 < 0) {
-				iterOver.remove();
+			if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && !birdCrashed) {
+				velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
 			}
-		}
 
-		timeSinceLastPoint += Gdx.graphics.getDeltaTime();
-		for (Rectangle underPillar : underPillars) {
-			if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
-				if (timeSinceLastPoint >= pointInterval){
-					updateScore();
-					System.out.println(score);
+			timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
+			if (timeSinceLastSpawn >= spawnInterval) {
+				spawnPillars();
+				timeSinceLastSpawn = 0.0f;
+			}
 
-					timeSinceLastPoint = 0.0f;
+			Iterator<Rectangle> iterUnder = underPillars.iterator();
+			while (iterUnder.hasNext() && !birdCrashed) {
+				Rectangle pillar = iterUnder.next();
+				pillar.x -= 200 * Gdx.graphics.getDeltaTime();
+				if (pillar.x + 64 < 0) {
+					iterUnder.remove();
 				}
-
 			}
-		}
-		if(extraLife == 0) {
+
+
+			Iterator<Rectangle> iterOver = overPillars.iterator();
+			while (iterOver.hasNext() && !birdCrashed) {
+				Rectangle pillar = iterOver.next();
+				pillar.x -= 200 * Gdx.graphics.getDeltaTime();
+				if (pillar.x + 64 < 0) {
+					iterOver.remove();
+				}
+			}
+
+			timeSinceLastPoint += Gdx.graphics.getDeltaTime();
+			for (Rectangle underPillar : underPillars) {
+				if (bird.x > underPillar.x && bird.x < underPillar.x + underPillar.width) {
+					if (timeSinceLastPoint >= pointInterval) {
+						updateScore();
+						System.out.println(score);
+
+						timeSinceLastPoint = 0.0f;
+					}
+
+				}
+			}
+			if (extraLife == 0) {
+				timeSinceLastHit += Gdx.graphics.getDeltaTime();
+				if (timeSinceLastHit > 3) {
+					extraLife = 1;
+				}
+			}
+
+
 			timeSinceLastHit += Gdx.graphics.getDeltaTime();
-			if(timeSinceLastHit > 3){
-				extraLife = 1;
+
+			for (int i = 0; i < overPillars.size; i++) {
+				if (bird.overlaps(overPillars.get(i)) && timeSinceLastHit > 0.1f) {
+					timeSinceLastHit = 0f;
+					System.out.println("Touched over pillar");
+					if (extraLife == 1) {
+						velocity = -2.5f;
+						extraLife = 0;
+					} else if (extraLife == 0) {
+						GameOver(iterOver, iterUnder);
+					}
+
+				} else if (bird.overlaps(underPillars.get(i)) && timeSinceLastHit > 0.1f) {
+					timeSinceLastHit = 0f;
+					System.out.println("Touched under pillar");
+					if (extraLife == 1) {
+						velocity = 4.5f;
+						extraLife = 0;
+					} else if (extraLife == 0) {
+						GameOver(iterOver, iterUnder);
+					}
+				}
 			}
+
+
 		}
-
-
-		timeSinceLastHit += Gdx.graphics.getDeltaTime();
-
-		for (int i = 0; i < overPillars.size; i++) {
-			if(bird.overlaps(overPillars.get(i)) && timeSinceLastHit > 0.1f) {
-				timeSinceLastHit = 0f;
-				System.out.println("Touched over pillar");
-				if (extraLife == 1){
-					velocity = -2.5f;
-					extraLife = 0;
-				}
-				else if(extraLife == 0){
-					GameOver(iterOver, iterUnder);
-				}
-
-			}
-			else if(bird.overlaps(underPillars.get(i) ) && timeSinceLastHit > 0.1f) {
-				timeSinceLastHit = 0f;
-				System.out.println("Touched under pillar");
-				if (extraLife == 1){
-					velocity = 4.5f;
-					extraLife = 0;
-				}
-				else if(extraLife == 0){
-					GameOver(iterOver, iterUnder);
-				}
-			}
-		}
-
-
-
-
 		// Resten av din render-kod...
 		ScreenUtils.clear(0, 0, 0, 1);
 		//camera.update();
@@ -193,13 +191,15 @@ public class GameScreen implements Screen {
 
 	private void GameOver(Iterator<Rectangle> iterOver, Iterator<Rectangle> iterUnder) {
 		//Måste ändras till en riktig game over metod
-		iterOver.remove();
+		/*iterOver.remove();
 		iterUnder.remove();
 		overPillars.clear();
-		underPillars.clear();
-		score = 0;
-		render(5);
+		underPillars.clear(); */
 		extraLife = 1;
+		birdCrashed = true;
+		render(5);
+
+
 	}
 
 
