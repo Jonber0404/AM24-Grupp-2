@@ -114,8 +114,8 @@ public class GameScreen implements Screen {
 			}
 
 			timeSinceLastRender += delta;
-			velocity += gravity; // Lägg till gravitationen till hastigheten
-			bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
+			//velocity += gravity; // Lägg till gravitationen till hastigheten
+			//bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
 
 			if (!birdCrashed) {
 				//Förhindra fågeln från att falla innan man trycker på Space.

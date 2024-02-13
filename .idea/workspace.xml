@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Gameover and pillar collision merge">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +121,13 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1707315003954</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
+      <created>1707823793559</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1707823793559</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +161,8 @@
     <MESSAGE value="Gravitation och hoppstyrka" />
     <MESSAGE value="Xml-filer" />
     <MESSAGE value="Refactored the project with screens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored the project with screens" />
+    <MESSAGE value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
