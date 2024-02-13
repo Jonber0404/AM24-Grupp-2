@@ -16,7 +16,9 @@ public class JumpyBirb extends ApplicationAdapter {
 	OrthographicCamera camera;
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
-	
+
+
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
