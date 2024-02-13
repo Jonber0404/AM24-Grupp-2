@@ -1,4 +1,4 @@
-package com.mygdx.game;
+/*package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -29,5 +29,8 @@ public class Animator implements ApplicationListener {
         // möjligt för att denna sprite sheet har frames av samma storlek och de är alla justerade.
         TextureRegion[][] tmp = TextureRegion.split(birbSheet, birbSheet.getWidth() / FRAME_COLS,
                 birbSheet.getHeight() / FRAME_ROWS);
+
+        //
     }
 }
+*/
