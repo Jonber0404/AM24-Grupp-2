@@ -8,14 +8,14 @@ import com.mygdx.game.JumpyBirb;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setResizable(false);
-		config.setForegroundFPS(60);
-		config.setTitle("JumpyBirb");
+
+		// Ställ in storleken på fönstret
+		config.setWindowedMode(1280, 720); // Sätt fönsterstorleken till 1920x1080 pixlar
+
+		config.setResizable(false); // Om du vill göra fönstret icke-ändringsbart
+		config.setForegroundFPS(60); // Sätt FPS-gränsen för applikationen
+		config.setTitle("JumpyBirb"); // Sätt titeln på fönstret
 		new Lwjgl3Application(new JumpyBirb(), config);
-		System.out.println("testing");
-		System.out.println("Test 2");
-
-		System.out.println("Min branch");
-
 	}
 }
+
