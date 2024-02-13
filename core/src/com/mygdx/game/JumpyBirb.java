@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 
 public class JumpyBirb extends Game {
 
@@ -31,4 +33,6 @@ public class JumpyBirb extends Game {
     public int getScore(){
         return score;
     }
+
+
 }

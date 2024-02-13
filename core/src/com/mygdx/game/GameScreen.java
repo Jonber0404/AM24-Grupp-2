@@ -51,6 +51,10 @@ public class GameScreen implements Screen {
 
 	private JumpyBirb jumpyBirb;
 
+	private float renderInterval = 0.001f; // Render interval in seconds
+	private float timeSinceLastRender = 0.0f;
+
+
 	public GameScreen(JumpyBirb jumpyBirb) {
 
 		this.jumpyBirb = jumpyBirb;
@@ -71,13 +75,39 @@ public class GameScreen implements Screen {
 
 		this.overPillars = new Array<Rectangle>();
 		this.underPillars = new Array<Rectangle>();
-		spawnPillars();
 		extraLife = 1;
 	}
 
 	@Override
 	public void render (float delta) {
-		if(!birdCrashed) {
+		if (!birdCrashed) {
+
+			timeSinceLastHit += Gdx.graphics.getDeltaTime();
+
+			for (int i = 0; i < overPillars.size; i++) {
+				if (bird.overlaps(overPillars.get(i)) && timeSinceLastHit > 0.1f) {
+					timeSinceLastHit = 0f;
+					System.out.println("Touched over pillar");
+					if (extraLife == 1) {
+						velocity = -2.5f;
+						extraLife = 0;
+					} else if (extraLife == 0) {
+						GameOver();
+					}
+
+				} else if (bird.overlaps(underPillars.get(i)) && timeSinceLastHit > 0.1f) {
+					timeSinceLastHit = 0f;
+					System.out.println("Touched under pillar");
+					if (extraLife == 1) {
+						velocity = 4.5f;
+						extraLife = 0;
+					} else if (extraLife == 0) {
+						GameOver();
+					}
+				}
+			}
+
+			timeSinceLastRender += delta;
 			velocity += gravity; // Lägg till gravitationen till hastigheten
 			bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
 
@@ -136,61 +166,42 @@ public class GameScreen implements Screen {
 			}
 
 
-			timeSinceLastHit += Gdx.graphics.getDeltaTime();
 
-			for (int i = 0; i < overPillars.size; i++) {
-				if (bird.overlaps(overPillars.get(i)) && timeSinceLastHit > 0.1f) {
-					timeSinceLastHit = 0f;
-					System.out.println("Touched over pillar");
-					if (extraLife == 1) {
-						velocity = -2.5f;
-						extraLife = 0;
-					} else if (extraLife == 0) {
-						GameOver(iterOver, iterUnder);
-					}
+		}
+		if (timeSinceLastRender >= renderInterval) {
+			timeSinceLastRender -= renderInterval; // Subtract render interval to accumulate the remaining time
 
-				} else if (bird.overlaps(underPillars.get(i)) && timeSinceLastHit > 0.1f) {
-					timeSinceLastHit = 0f;
-					System.out.println("Touched under pillar");
-					if (extraLife == 1) {
-						velocity = 4.5f;
-						extraLife = 0;
-					} else if (extraLife == 0) {
-						GameOver(iterOver, iterUnder);
-					}
-				}
+			// Rendering logic
+
+			System.out.println(birdCrashed);
+			// Resten av din render-kod...
+			ScreenUtils.clear(0, 0, 0, 1);
+			//camera.update();
+			//batch.setProjectionMatrix(camera.combined);
+			batch.begin();
+			batch.draw(backgroundImage, 0, 0, 1280, 720);
+			batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
+			for (Rectangle pillar : underPillars) {
+				batch.draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
 			}
-
+			for (Rectangle pillar : overPillars) {
+				batch.draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
+			}
+			batch.end();
 
 		}
-		// Resten av din render-kod...
-		ScreenUtils.clear(0, 0, 0, 1);
-		//camera.update();
-		//batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(backgroundImage, 0, 0, 1280, 720);
-		batch.draw(birdImage, bird.x, bird.y, bird.width, bird.height);
-		for(Rectangle pillar: underPillars) {
-			batch.draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
-		}
-		for(Rectangle pillar: overPillars) {
-			batch.draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
-		}
-		batch.end();
-
 
 	}
 
-	private void GameOver(Iterator<Rectangle> iterOver, Iterator<Rectangle> iterUnder) {
+	private void GameOver() {
 		//Måste ändras till en riktig game over metod
-		/*iterOver.remove();
-		iterUnder.remove();
-		overPillars.clear();
-		underPillars.clear(); */
+
 		extraLife = 1;
 		birdCrashed = true;
-		render(5);
+		render(100000);
 		jumpyBirb.setGameOver();
+		System.out.println(birdCrashed);
+
 
 	}
 

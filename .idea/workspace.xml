@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Refactored the project with screens">
+    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Gameover and pillar collision merge">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +139,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="JonathanBranch" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
