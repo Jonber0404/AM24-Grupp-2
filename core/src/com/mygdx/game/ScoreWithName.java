@@ -5,7 +5,7 @@ package com.mygdx.game;
  * @param name
  * @param score
  */
-public record Score(String name, int score) implements Comparable<Score> {
+public record ScoreWithName(String name, int score) implements Comparable<ScoreWithName> {
 
     /**
      * Jämför poängen "baklänges", så att högsta poäng hamnar först i listan.
@@ -13,7 +13,7 @@ public record Score(String name, int score) implements Comparable<Score> {
      * @return
      */
     @Override
-    public int compareTo(Score o) {
+    public int compareTo(ScoreWithName o) {
         return Integer.compare(this.score, o.score) * -1;
     }
 
