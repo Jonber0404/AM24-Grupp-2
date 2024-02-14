@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 
 		this.backgroundImage = new Texture("background.jpg");
 		this.birdImage = new Texture("pixlybird.png");
-		this.pillarImage = new Texture("pillar.png");
+		this.pillarImage = new Texture("brick_pillar.png");
 
 
 		//camera = new OrthographicCamera();
