@@ -8,6 +8,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
     </list>
+    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
+    </list>
+    <list id="47f56444-44da-46c6-985f-3670400250b1" name="Changes by ludvi" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,6 +59,35 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java">
+      <ranges>
+        <range start1="8" end1="9" start2="8" end2="8" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="22" end1="23" start2="21" end2="21" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="27" end1="28" start2="25" end2="25" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="47" end1="48" start2="44" end2="44" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="52" end1="56" start2="48" end2="48" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="57" end1="58" start2="49" end2="50" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="65" end1="66" start2="57" end2="57" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="92" end1="118" start2="83" end2="85" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="121" end1="139" start2="88" end2="89" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="141" end1="166" start2="91" end2="92" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="167" end1="173" start2="93" end2="95" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="174" end1="176" start2="96" end2="97" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="177" end1="191" start2="98" end2="100" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="193" end1="194" start2="102" end2="102" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="198" end1="201" start2="106" end2="109" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="202" end1="203" start2="110" end2="111" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="205" end1="206" start2="113" end2="114" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="207" end1="211" start2="115" end2="116" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="214" end1="214" start2="119" end2="200" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="216" end1="217" start2="202" end2="202" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="222" end1="224" start2="207" end2="207" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="239" end1="240" start2="222" end2="222" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="271" end1="272" start2="253" end2="253" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -61,8 +98,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="CodeWithMe" />
   </component>
   <component name="RunManager">
     <configuration name="AM24-Grupp-2 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">

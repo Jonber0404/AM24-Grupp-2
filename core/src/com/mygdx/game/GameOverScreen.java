@@ -3,38 +3,32 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.utils.ScreenUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public class GameOverScreen implements Screen {
 
-    private JumpyBirb jumpyBirb;
-    private SpriteBatch batch;
+    private final JumpyBirb jumpyBirb;
+    private FreeTypeFontGenerator fontGen;
+    private FreeTypeFontParameter fontParam;
+    private BitmapFont fontSmall;
 
     private List<ScoreWithName> highscores;
 
     private String test;
 
-    private FreeTypeFontGenerator fontGen;
-    private FreeTypeFontParameter fontParam;
-    private BitmapFont font;
 
     public GameOverScreen(JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
-        batch = new SpriteBatch();
 
         test = "GAME OVER";
-
         fontGen = new FreeTypeFontGenerator(Gdx.files.internal("COMIC.TTF"));
         fontParam = new FreeTypeFontParameter();
 
         fontParam.size = 40;
-        font = fontGen.generateFont(fontParam);
+        fontSmall = fontGen.generateFont(fontParam);
 
         this.highscores = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -53,10 +47,10 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        batch.begin();
-        font.draw(batch, test + "\nScore: " + jumpyBirb.getScore() + "\nHigh Score: " + highscores.get(0).score(),
+        jumpyBirb.getBatch().begin();
+        fontSmall.draw(jumpyBirb.getBatch(), test + "\nScore: " + jumpyBirb.getScore() + "\nHigh Score: " + highscores.get(0).score(),
                 Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        batch.end();
+        jumpyBirb.getBatch().end();
     }
 
     @Override
@@ -81,8 +75,8 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
+        fontSmall.dispose();
+        fontGen.dispose();
     }
 
 
