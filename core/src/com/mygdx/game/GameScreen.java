@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
 		this.jumpyBirb = jumpyBirb;
 
 		this.backgroundImage = new Texture("background.jpg");
-		this.birdImage = new Texture("pixlybird.png");
+		this.birdImage = new Texture("pixlybird_red.png");
 		this.pillarImage = new Texture("brick_pillar.png");
 
 
