@@ -1,8 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class JumpyBirb extends Game {
@@ -25,6 +23,10 @@ public class JumpyBirb extends Game {
 
     public void setGameOver(){
         setScreen(gameOverScreen);
+    }
+
+    public void newGame() {
+        setScreen(gameScreen);
     }
 
     public void resetScore(){

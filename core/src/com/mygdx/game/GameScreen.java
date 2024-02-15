@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -10,31 +9,27 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.TimeUtils;
-import org.w3c.dom.css.Rect;
 
 import java.util.Iterator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameScreen implements Screen {
-	OrthographicCamera camera;
 	Texture birdImage;
-
 	Texture pillarImage;
-
 	Texture backgroundImage;
 
 	Rectangle bird;
-	int score;
 	int extraLife;
 
 	private Array<Rectangle> underPillars;
 	private Array<Rectangle> overPillars;
+
+	// TODO: Kan dessa oanvända variabler tas bort?
+	OrthographicCamera camera;
 	private long spawnTime;
+
 	float timeSinceLastHit;
 
+	// TODO: Ska vi flytta initieringen av variabler till konstruktorn?
 	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
 
@@ -231,7 +226,20 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		resetGame();
+	}
 
+	/**
+	 * Resets everything to initial values
+	 */
+	private void resetGame() {
+		underPillars.clear();
+		overPillars.clear();
+		gravityEnabled = false;
+		movingPillarsEnabled = false;
+		birdCrashed = false;
+		bird.x = Gdx.graphics.getWidth() / 2 - 64 / 2;
+		bird.y = Gdx.graphics.getHeight() / 2;
 	}
 
 

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
@@ -47,9 +48,12 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))) {
+            jumpyBirb.newGame();
+        }
         jumpyBirb.getBatch().begin();
         fontSmall.draw(jumpyBirb.getBatch(), test + "\nScore: " + jumpyBirb.getScore() + "\nHigh Score: " + highscores.get(0).score(),
-                Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+                Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight() / 2 + 70);
         jumpyBirb.getBatch().end();
     }
 
@@ -80,7 +84,7 @@ public class GameOverScreen implements Screen {
     }
 
 
-    public void addHighScore(String name) {
+    private void addHighScore(String name) {
         for (int i = 0; i < 10; i++) {
             if (jumpyBirb.getScore() > highscores.get(i).score()) {
                 highscores.add(i, new ScoreWithName(name, jumpyBirb.getScore()));
