@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 
 		this.backgroundImage = new Texture("background.jpg");
 		this.birdImage = new Texture("pixlybird_red.png");
-		this.pillarImage = new Texture("brick_pillar.png");
+		this.pillarImage = new Texture("brick_pillar_long.png");
 
 
 		//camera = new OrthographicCamera();
@@ -208,16 +208,22 @@ public class GameScreen implements Screen {
 	}
 
 
-	private void spawnPillars(){
-		int position = MathUtils.random(80, 600);
+	private void spawnPillars() {
+		int randomRange = 360;
+		int spaceBetweenPillars = 430;
+		int pillarOffset = -125;
+		int position = MathUtils.random(0, randomRange) + pillarOffset;
 		float scale = 0.2f;
+
 		Rectangle pillarUnder = new Rectangle
-				(1280, position -400, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+				(1280, position - spaceBetweenPillars, pillarImage.getWidth() * scale,
+						pillarImage.getHeight() * scale);
 
 		underPillars.add(pillarUnder);
 
 		Rectangle pillarOver = new Rectangle
-				(1280, position + 140, pillarImage.getWidth() * scale, pillarImage.getHeight() * scale);
+				(1280, position + spaceBetweenPillars, pillarImage.getWidth() * scale,
+						pillarImage.getHeight() * scale);
 
 		overPillars.add(pillarOver);
 	}
