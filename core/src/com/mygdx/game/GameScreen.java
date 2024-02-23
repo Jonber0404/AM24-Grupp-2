@@ -76,22 +76,22 @@ public class GameScreen implements Screen {
 
 			timeSinceLastHit += Gdx.graphics.getDeltaTime();
 
-			PillarCollision(overPillars, -2.5f);
-			PillarCollision(underPillars, 4.5f);
+			pillarCollision(overPillars, -2.5f);
+			pillarCollision(underPillars, 4.5f);
 
 			if (!birdCrashed) {
 				//Förhindra fågeln från att falla innan man trycker på Space.
-				BirdMovement();
+				birdMovement();
 
 				//Förhindra pellare från att spawn/röra sig åt vänster för än Spacebar har tryckts.
-				StartGame();
+				startGame();
 
-				MovePillars(overPillars);
-				MovePillars(underPillars);
+				movePillars(overPillars);
+				movePillars(underPillars);
 
-				AddPointWhenPassingPillar();
+				addPointWhenPassingPillar();
 
-				ExtraLife();
+				handleExtraLife();
 			}
 				// Rendering logic
 
@@ -112,7 +112,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void PillarCollision(Array<Rectangle> pillars, float velocityFactor) {
+	private void pillarCollision(Array<Rectangle> pillars, float velocityFactor) {
 		for (int i = 0; i < pillars.size; i++) {
 			if (bird.overlaps(pillars.get(i)) && timeSinceLastHit > 0.1f) {
 				timeSinceLastHit = 0f;
@@ -121,17 +121,18 @@ public class GameScreen implements Screen {
 					velocity = velocityFactor; //-2.5 och 4.5
 					extraLife = 0;
 				} else if (extraLife == 0) {
-					GameOver();
+					gameOver();
 				}
 			}
 		}
 	}
 
-	private void BirdMovement() {
+	private void birdMovement() {
 		// Förhindra fågeln från att falla genom marken
 		if (bird.y < 0) {
 			bird.y = 0;
 			velocity = 0; // Stoppa ytterligare fall när fågeln når marken
+			gameOver();
 		}
 
 		if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && !birdCrashed) {
@@ -139,7 +140,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void StartGame() {
+	private void startGame() {
 		if (gravityEnabled) {
 			velocity += gravity; // Lägg till gravitationen till hastigheten
 			bird.y += velocity; // Uppdatera fågelns position med den nya hastigheten
@@ -157,7 +158,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void MovePillars(Array<Rectangle> pillars) {
+	private void movePillars(Array<Rectangle> pillars) {
 		Iterator<Rectangle> iter = pillars.iterator();
 		while (iter.hasNext() && !birdCrashed) {
 			Rectangle pillar = iter.next();
@@ -168,7 +169,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void ExtraLife() {
+	private void handleExtraLife() {
 		//Extra livs system(?)
 		if (extraLife == 0) {
 			timeSinceLastHit += Gdx.graphics.getDeltaTime();
@@ -178,7 +179,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void AddPointWhenPassingPillar() {
+	private void addPointWhenPassingPillar() {
 		timeSinceLastPoint += Gdx.graphics.getDeltaTime();
 		float pointInterval = 1.0f;
 		for (Rectangle underPillar : underPillars) {
@@ -193,7 +194,7 @@ public class GameScreen implements Screen {
 		}
 	}
 	
-	private void GameOver() {
+	private void gameOver() {
 		//Måste ändras till en riktig game over metod
 		extraLife = 1;
 		birdCrashed = true;
