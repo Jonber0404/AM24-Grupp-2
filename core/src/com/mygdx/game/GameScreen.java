@@ -78,6 +78,7 @@ public class GameScreen implements Screen {
 
 			pillarCollision(overPillars, -2.5f);
 			pillarCollision(underPillars, 4.5f);
+			groundCollision();
 
 			if (!birdCrashed) {
 				//Förhindra fågeln från att falla innan man trycker på Space.
@@ -127,14 +128,16 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private void birdMovement() {
+	private void groundCollision() {
 		// Förhindra fågeln från att falla genom marken
 		if (bird.y < 0) {
 			bird.y = 0;
 			velocity = 0; // Stoppa ytterligare fall när fågeln når marken
 			gameOver();
 		}
+	}
 
+	private void birdMovement() {
 		if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && !birdCrashed) {
 			velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
 		}
