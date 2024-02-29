@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" afterDir="false" />
     </list>
-    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="">
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
-    </list>
-    <list id="4295c3a3-62e0-458c-bf78-3410b079adf1" name="Changes by Jonte" comment="">
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-    </list>
+    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,63 +50,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java">
-      <ranges>
-        <range start1="5" end1="6" start2="5" end2="6" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="13" end1="13" start2="13" end2="14" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="15" end1="16" start2="16" end2="19" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="18" end1="29" start2="21" end2="24" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="30" end1="36" start2="25" end2="25" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="38" end1="39" start2="27" end2="27" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="40" end1="42" start2="28" end2="28" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="43" end1="47" start2="29" end2="30" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="53" end1="54" start2="36" end2="36" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="55" end1="56" start2="37" end2="38" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="57" end1="59" start2="39" end2="40" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="60" end1="61" start2="41" end2="44" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="62" end1="69" start2="45" end2="47" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="74" end1="77" start2="52" end2="56" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="78" end1="80" start2="57" end2="60" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="81" end1="84" start2="61" end2="62" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="85" end1="87" start2="63" end2="65" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="88" end1="90" start2="66" end2="67" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="91" end1="92" start2="68" end2="69" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="93" end1="112" start2="70" end2="85" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="114" end1="115" start2="87" end2="88" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="116" end1="117" start2="89" end2="90" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="119" end1="155" start2="92" end2="98" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="159" end1="165" start2="102" end2="115" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="170" end1="173" start2="120" end2="122" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="175" end1="176" start2="124" end2="125" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="180" end1="181" start2="129" end2="130" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="183" end1="185" start2="132" end2="136" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="188" end1="189" start2="139" end2="139" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="194" end1="200" start2="144" end2="167" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="201" end1="202" start2="168" end2="169" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="204" end1="204" start2="171" end2="176" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="205" end1="205" start2="177" end2="178" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="212" end1="213" start2="185" end2="186" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="214" end1="215" start2="187" end2="188" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="218" end1="219" start2="191" end2="192" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="220" end1="221" start2="193" end2="194" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="224" end1="225" start2="197" end2="197" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="237" end1="238" start2="209" end2="210" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="239" end1="242" start2="211" end2="213" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="243" end1="244" start2="214" end2="214" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="268" end1="269" start2="238" end2="238" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="270" end1="270" start2="239" end2="240" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="17" end1="19" start2="17" end2="19" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
-        <range start1="32" end1="33" start2="32" end2="74" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="35" end1="36" start2="76" end2="77" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -128,19 +62,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ToolWindowCode With Me.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;KlassStructure&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ToolWindowCode With Me.ShowToolbar": "false",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "KlassStructure",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="AM24-Grupp-2 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -182,7 +117,7 @@
       <workItem from="1707205898996" duration="3046000" />
       <workItem from="1709125567568" duration="1522000" />
       <workItem from="1709193178820" duration="4875000" />
-      <workItem from="1709199474328" duration="10263000" />
+      <workItem from="1709199474328" duration="13072000" />
     </task>
     <task id="LOCAL−00001" summary="Added the lower pillar generation">
       <created>1707212890403</created>

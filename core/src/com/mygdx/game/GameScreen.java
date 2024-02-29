@@ -185,13 +185,13 @@ public class GameScreen implements Screen {
 
 		Pillar pillarUnder = new Pillar
 				(1280, position - spaceBetweenPillars, pillarImage.getWidth() * scale,
-						pillarImage.getHeight() * scale, pillarImage);
+						pillarImage.getHeight() * scale);
 
 		underPillars.add(pillarUnder);
 
 		Pillar pillarOver = new Pillar
 				(1280, position + spaceBetweenPillars, pillarImage.getWidth() * scale,
-						pillarImage.getHeight() * scale, pillarImage);
+						pillarImage.getHeight() * scale);
 
 		overPillars.add(pillarOver);
 	}
