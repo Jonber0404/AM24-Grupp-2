@@ -19,22 +19,22 @@ public class GameScreen implements Screen {
 	Rectangle bird;
 	int extraLife;
 
-	private Array<Rectangle> underPillars;
-	private Array<Rectangle> overPillars;
+	private final Array<Rectangle> underPillars;
+	private final Array<Rectangle> overPillars;
 
 	float timeSinceLastHit;
 
 	// TODO: Ska vi flytta initieringen av variabler till konstruktorn?
-	private float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
+	private final float gravity = -0.5f; // Gravitationskraft som påverkar fågeln varje frame
 	private float velocity = 0; // Fågelns vertikala hastighet
 
 
-	private float spawnInterval = 2.0f;
+	private final float spawnInterval = 2.0f;
 	private float timeSinceLastSpawn = 0.0f;
 
 	private float timeSinceLastPoint = 0.0f;
 
-	private JumpyBirb jumpyBirb;
+	private final JumpyBirb jumpyBirb;
 
     private boolean movingPillarsEnabled = false;
     private boolean gravityEnabled = false;
@@ -49,13 +49,13 @@ public class GameScreen implements Screen {
 		this.pillarImage = new Texture("brick_pillar_long.png");
 
 
-		this.bird = new Rectangle(1280 / 2 - 64 / 2, 720 / 2, birdImage.getWidth(), birdImage.getHeight());
+		this.bird = new Rectangle(1280 / 2f - 64 / 2f, 720 / 2f, birdImage.getWidth(), birdImage.getHeight());
 
 		float scale = 0.1f; // Adjust the scale factor as needed
 		this.bird.setSize(bird.width * scale, bird.height * scale);
 
-		this.overPillars = new Array<Rectangle>();
-		this.underPillars = new Array<Rectangle>();
+		this.overPillars = new Array<>();
+		this.underPillars = new Array<>();
 
 		extraLife = 1;
 	}
@@ -228,8 +228,8 @@ public class GameScreen implements Screen {
 		overPillars.clear();
 		gravityEnabled = false;
 		movingPillarsEnabled = false;
-		bird.x = Gdx.graphics.getWidth() / 2 - 64 / 2;
-		bird.y = Gdx.graphics.getHeight() / 2;
+		bird.x = Gdx.graphics.getWidth() / 2f - 64 / 2f;
+		bird.y = Gdx.graphics.getHeight() / 2f;
 	}
 
 
