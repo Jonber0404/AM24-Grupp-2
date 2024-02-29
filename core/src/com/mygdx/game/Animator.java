@@ -1,4 +1,4 @@
-/*package com.mygdx.game;
+package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -15,8 +15,8 @@ public class Animator implements ApplicationListener {
     public Animation<TextureRegion> flappyAnimation;
     public Animation<TextureRegion> jumpyAnimation;
 
-    flappyAnimation = new Animation<TextureRegion>(0.033f, atlas.findRegions("running"), Animation.PlayMode.LOOP);
-    jumpyAnimation = new Animation<TextureRegion>(0.033f, atlas.findRegions("running", Animation.PlayMode.LOOP));
+ //   flappyAnimation = new Animation<TextureRegion>(0.033f, atlas.findRegions("running"), Animation.PlayMode.LOOP);
+//    jumpyAnimation = new Animation<TextureRegion>(0.033f, atlas.findRegions("running", Animation.PlayMode.LOOP));
 
     //En variable för att hålla koll på den förflutna tiden
     float stateTime;
@@ -30,7 +30,47 @@ public class Animator implements ApplicationListener {
         TextureRegion[][] tmp = TextureRegion.split(birbSheet, birbSheet.getWidth() / FRAME_COLS,
                 birbSheet.getHeight() / FRAME_ROWS);
 
-        //
+        //Provar att läga texture regionerna i en 1D array i en korrekt order, startande från top vänster.
+        //Animations konstruktorn behöver tydligen en 1D array.
+        TextureRegion[] jumpingFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int jumpingIndex = 0;
+        for (int i = 0; i < FRAME_ROWS; i++){
+            for (int j = 0; j < FRAME_COLS; j++){
+                jumpingFrames[jumpingIndex++] = tmp[i][j];
+            }
+        }
+
+        //Initierar flappyAnimation med frame intervalet och arrayen från jumpingFrames.
+        flappyAnimation = new Animation<TextureRegion>(0.025f, jumpingFrames);
+
+        //Instansiera en SpriteBatch för rita (drawing) och reset den förflutna (elapsed) animation
+        // tid till 0.
+        spriteBatch = new SpriteBatch();
+        stateTime = 0f;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void render() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
-*/

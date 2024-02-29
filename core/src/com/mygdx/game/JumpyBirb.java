@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class JumpyBirb extends Game {
 
+    private StartScreen startScreen;
     private GameScreen gameScreen;
     private GameOverScreen gameOverScreen;
     private SpriteBatch batch;
@@ -13,6 +14,7 @@ public class JumpyBirb extends Game {
 
     @Override
     public void create() {
+
             gameScreen = new GameScreen(this);
             gameOverScreen = new GameOverScreen(this);
             batch = new SpriteBatch();
@@ -46,6 +48,7 @@ public class JumpyBirb extends Game {
     }
 
     public void dispose() {
+        startScreen.dispose();
         gameScreen.dispose();
         gameOverScreen.dispose();
     }

@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-    </list>
-    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="">
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-    </list>
-    <list id="47f56444-44da-46c6-985f-3670400250b1" name="Changes by ludvi" comment="">
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
+    </list>
+    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
+    </list>
+    <list id="4295c3a3-62e0-458c-bf78-3410b079adf1" name="Changes by Jonte" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,27 +37,24 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Jimmy" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,46 +62,85 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java">
       <ranges>
-        <range start1="8" end1="9" start2="8" end2="8" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="22" end1="23" start2="21" end2="21" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="27" end1="28" start2="25" end2="25" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="47" end1="48" start2="44" end2="44" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="52" end1="56" start2="48" end2="48" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="57" end1="58" start2="49" end2="50" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="65" end1="66" start2="57" end2="57" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="92" end1="118" start2="83" end2="85" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="121" end1="139" start2="88" end2="89" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="141" end1="166" start2="91" end2="92" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="167" end1="173" start2="93" end2="95" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="174" end1="176" start2="96" end2="97" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="177" end1="191" start2="98" end2="100" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="193" end1="194" start2="102" end2="102" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="198" end1="201" start2="106" end2="109" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="202" end1="203" start2="110" end2="111" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="205" end1="206" start2="113" end2="114" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="207" end1="211" start2="115" end2="116" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="214" end1="214" start2="119" end2="200" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="216" end1="217" start2="202" end2="202" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="222" end1="224" start2="207" end2="207" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="239" end1="240" start2="222" end2="222" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="271" end1="272" start2="253" end2="253" changelist="47f56444-44da-46c6-985f-3670400250b1" />
+        <range start1="5" end1="6" start2="5" end2="6" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="13" end1="13" start2="13" end2="14" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="15" end1="16" start2="16" end2="19" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="18" end1="29" start2="21" end2="24" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="30" end1="36" start2="25" end2="25" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="38" end1="39" start2="27" end2="27" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="40" end1="42" start2="28" end2="28" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="43" end1="47" start2="29" end2="30" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="53" end1="54" start2="36" end2="36" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="55" end1="56" start2="37" end2="38" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="57" end1="59" start2="39" end2="40" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="60" end1="61" start2="41" end2="44" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="62" end1="69" start2="45" end2="47" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="74" end1="77" start2="52" end2="56" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="78" end1="80" start2="57" end2="60" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="81" end1="84" start2="61" end2="62" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="85" end1="87" start2="63" end2="65" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="88" end1="90" start2="66" end2="67" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="91" end1="92" start2="68" end2="69" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="93" end1="112" start2="70" end2="85" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="114" end1="115" start2="87" end2="88" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="116" end1="117" start2="89" end2="90" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="119" end1="155" start2="92" end2="98" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="159" end1="165" start2="102" end2="115" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="170" end1="173" start2="120" end2="122" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="175" end1="176" start2="124" end2="125" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="180" end1="181" start2="129" end2="130" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="183" end1="185" start2="132" end2="136" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="188" end1="189" start2="139" end2="139" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="194" end1="200" start2="144" end2="167" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="201" end1="202" start2="168" end2="169" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="204" end1="204" start2="171" end2="176" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="205" end1="205" start2="177" end2="178" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="212" end1="213" start2="185" end2="186" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="214" end1="215" start2="187" end2="188" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="218" end1="219" start2="191" end2="192" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="220" end1="221" start2="193" end2="194" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="224" end1="225" start2="197" end2="197" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="237" end1="238" start2="209" end2="210" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="239" end1="242" start2="211" end2="213" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="243" end1="244" start2="214" end2="214" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="268" end1="269" start2="238" end2="238" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+        <range start1="270" end1="270" start2="239" end2="240" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java">
+      <ranges>
+        <range start1="0" end1="1" start2="0" end2="1" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="17" end1="19" start2="17" end2="19" changelist="4295c3a3-62e0-458c-bf78-3410b079adf1" />
+        <range start1="32" end1="33" start2="32" end2="74" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
+        <range start1="35" end1="36" start2="76" end2="77" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
       </ranges>
     </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2bflTU5icqpxlYPYLTaSFz31DhT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="CodeWithMe" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ToolWindowCode With Me.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;KlassStructure&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="AM24-Grupp-2 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -122,6 +161,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -140,6 +180,9 @@
       <updated>1706614023715</updated>
       <workItem from="1706626805350" duration="325000" />
       <workItem from="1707205898996" duration="3046000" />
+      <workItem from="1709125567568" duration="1522000" />
+      <workItem from="1709193178820" duration="4875000" />
+      <workItem from="1709199474328" duration="10263000" />
     </task>
     <task id="LOCAL−00001" summary="Added the lower pillar generation">
       <created>1707212890403</created>
@@ -193,7 +236,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Gravitation och hoppstyrka" />
@@ -201,6 +243,31 @@
     <MESSAGE value="Refactored the project with screens" />
     <MESSAGE value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
     <option name="LAST_COMMIT_MESSAGE" value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java</url>
+          <line>199</line>
+          <properties class="com.mygdx.game.GameScreen" method="show">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
