@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-    </list>
-    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="">
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
-    </list>
-    <list id="47f56444-44da-46c6-985f-3670400250b1" name="Changes by ludvi" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" afterDir="false" />
     </list>
+    <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="" />
+    <list id="47f56444-44da-46c6-985f-3670400250b1" name="Changes by ludvi" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,59 +34,27 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Jimmy" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java">
-      <ranges>
-        <range start1="8" end1="9" start2="8" end2="8" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="22" end1="23" start2="21" end2="21" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="27" end1="28" start2="25" end2="25" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="47" end1="48" start2="44" end2="44" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="52" end1="56" start2="48" end2="48" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="57" end1="58" start2="49" end2="50" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="65" end1="66" start2="57" end2="57" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="92" end1="118" start2="83" end2="85" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="121" end1="139" start2="88" end2="89" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="141" end1="166" start2="91" end2="92" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="167" end1="173" start2="93" end2="95" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="174" end1="176" start2="96" end2="97" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="177" end1="191" start2="98" end2="100" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="193" end1="194" start2="102" end2="102" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="198" end1="201" start2="106" end2="109" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="202" end1="203" start2="110" end2="111" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="205" end1="206" start2="113" end2="114" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-        <range start1="207" end1="211" start2="115" end2="116" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="214" end1="214" start2="119" end2="200" changelist="57892559-1b32-480c-8ff7-8e91d6c9169b" />
-        <range start1="216" end1="217" start2="202" end2="202" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="222" end1="224" start2="207" end2="207" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="239" end1="240" start2="222" end2="222" changelist="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" />
-        <range start1="271" end1="272" start2="253" end2="253" changelist="47f56444-44da-46c6-985f-3670400250b1" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -96,11 +64,6 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="CodeWithMe" />
   </component>
   <component name="RunManager">
     <configuration name="AM24-Grupp-2 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -140,6 +103,9 @@
       <updated>1706614023715</updated>
       <workItem from="1706626805350" duration="325000" />
       <workItem from="1707205898996" duration="3046000" />
+      <workItem from="1709125567568" duration="1522000" />
+      <workItem from="1709193178820" duration="4875000" />
+      <workItem from="1709199474328" duration="10263000" />
     </task>
     <task id="LOCAL−00001" summary="Added the lower pillar generation">
       <created>1707212890403</created>
@@ -201,6 +167,26 @@
     <MESSAGE value="Refactored the project with screens" />
     <MESSAGE value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
     <option name="LAST_COMMIT_MESSAGE" value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java</url>
+          <line>99</line>
+          <properties class="com.mygdx.game.GameScreen">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

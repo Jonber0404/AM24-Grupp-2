@@ -83,7 +83,6 @@ public class GameOverScreen implements Screen {
         fontGen.dispose();
     }
 
-
     private void addHighScore(String name) {
         for (int i = 0; i < 10; i++) {
             if (jumpyBirb.getScore() > highscores.get(i).score()) {
