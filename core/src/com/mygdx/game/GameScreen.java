@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,10 +22,6 @@ public class GameScreen implements Screen {
 	private Array<Rectangle> underPillars;
 	private Array<Rectangle> overPillars;
 
-	// TODO: Kan dessa oanvända variabler tas bort?
-	OrthographicCamera camera;
-	private long spawnTime;
-
 	float timeSinceLastHit;
 
 	// TODO: Ska vi flytta initieringen av variabler till konstruktorn?
@@ -38,7 +33,6 @@ public class GameScreen implements Screen {
 	private float timeSinceLastSpawn = 0.0f;
 
 	private float timeSinceLastPoint = 0.0f;
-	private boolean birdCrashed = false;
 
 	private JumpyBirb jumpyBirb;
 
@@ -55,9 +49,6 @@ public class GameScreen implements Screen {
 		this.pillarImage = new Texture("brick_pillar_long.png");
 
 
-		//camera = new OrthographicCamera();
-		//camera.setToOrtho(false, 1280, 720);
-
 		this.bird = new Rectangle(1280 / 2 - 64 / 2, 720 / 2, birdImage.getWidth(), birdImage.getHeight());
 
 		float scale = 0.1f; // Adjust the scale factor as needed
@@ -72,45 +63,42 @@ public class GameScreen implements Screen {
 	@Override
 	public void render (float delta) {
 
-		if (!birdCrashed) {
+		timeSinceLastHit += Gdx.graphics.getDeltaTime();
 
-			timeSinceLastHit += Gdx.graphics.getDeltaTime();
+		pillarCollision(overPillars, -2.5f);
+		pillarCollision(underPillars, 4.5f);
+		groundCollision();
 
-			pillarCollision(overPillars, -2.5f);
-			pillarCollision(underPillars, 4.5f);
-			groundCollision();
+		//Förhindra fågeln från att falla innan man trycker på Space.
+		birdMovement();
 
-			if (!birdCrashed) {
-				//Förhindra fågeln från att falla innan man trycker på Space.
-				birdMovement();
+		//Förhindra pellare från att spawn/röra sig åt vänster för än Spacebar har tryckts.
+		startGame();
 
-				//Förhindra pellare från att spawn/röra sig åt vänster för än Spacebar har tryckts.
-				startGame();
+		movePillars(overPillars);
+		movePillars(underPillars);
 
-				movePillars(overPillars);
-				movePillars(underPillars);
+		addPointWhenPassingPillar();
 
-				addPointWhenPassingPillar();
+		handleExtraLife();
 
-				handleExtraLife();
-			}
-				// Rendering logic
+		// Rendering logic
 
-				// Resten av din render-kod...
-				ScreenUtils.clear(0, 0, 0, 1);
-				//camera.update();
-				//batch.setProjectionMatrix(camera.combined);
-				jumpyBirb.getBatch().begin();
-				jumpyBirb.getBatch().draw(backgroundImage, 0, 0, 1280, 720);
-				jumpyBirb.getBatch().draw(birdImage, bird.x, bird.y, bird.width, bird.height);
-				for (Rectangle pillar : underPillars) {
-					jumpyBirb.getBatch().draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
-				}
-				for (Rectangle pillar : overPillars) {
-					jumpyBirb.getBatch().draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
-				}
-				jumpyBirb.getBatch().end();
+		// Resten av din render-kod...
+		ScreenUtils.clear(0, 0, 0, 1);
+		//camera.update();
+		//batch.setProjectionMatrix(camera.combined);
+		jumpyBirb.getBatch().begin();
+		jumpyBirb.getBatch().draw(backgroundImage, 0, 0, 1280, 720);
+		jumpyBirb.getBatch().draw(birdImage, bird.x, bird.y, bird.width, bird.height);
+		for (Rectangle pillar : underPillars) {
+			jumpyBirb.getBatch().draw(pillarImage, pillar.x, pillar.y, pillar.width, pillar.height);
 		}
+		for (Rectangle pillar : overPillars) {
+			jumpyBirb.getBatch().draw(pillarImage, pillar.x, pillar.y + pillar.height, pillar.width, -pillar.height);
+		}
+		jumpyBirb.getBatch().end();
+
 	}
 
 	private void pillarCollision(Array<Rectangle> pillars, float velocityFactor) {
@@ -131,14 +119,14 @@ public class GameScreen implements Screen {
 	private void groundCollision() {
 		// Förhindra fågeln från att falla genom marken
 		if (bird.y < 0) {
-			bird.y = 0;
 			velocity = 0; // Stoppa ytterligare fall när fågeln når marken
 			gameOver();
 		}
 	}
 
 	private void birdMovement() {
-		if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && !birdCrashed) {
+
+		if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))) {
 			velocity = 10; // Justera detta värde för att ändra hur högt fågeln hoppar
 		}
 	}
@@ -163,7 +151,7 @@ public class GameScreen implements Screen {
 
 	private void movePillars(Array<Rectangle> pillars) {
 		Iterator<Rectangle> iter = pillars.iterator();
-		while (iter.hasNext() && !birdCrashed) {
+		while (iter.hasNext() && movingPillarsEnabled) {
 			Rectangle pillar = iter.next();
 			pillar.x -= 200 * Gdx.graphics.getDeltaTime();
 			if (pillar.x + 64 < 0) {
@@ -200,10 +188,9 @@ public class GameScreen implements Screen {
 	private void gameOver() {
 		//Måste ändras till en riktig game over metod
 		extraLife = 1;
-		birdCrashed = true;
-		render(100000);
+		movingPillarsEnabled = !movingPillarsEnabled;
+		gravityEnabled = !gravityEnabled;
 		jumpyBirb.setGameOver();
-		System.out.println(birdCrashed);
 	}
 
 
@@ -241,7 +228,6 @@ public class GameScreen implements Screen {
 		overPillars.clear();
 		gravityEnabled = false;
 		movingPillarsEnabled = false;
-		birdCrashed = false;
 		bird.x = Gdx.graphics.getWidth() / 2 - 64 / 2;
 		bird.y = Gdx.graphics.getHeight() / 2;
 	}
