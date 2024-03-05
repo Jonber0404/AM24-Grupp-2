@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -33,17 +35,20 @@ public class GameScreen implements Screen {
 
     private Texture difficultyButtonsTexture;
     private Rectangle[] difficultyButtons;
-    private String[] difficultyButtonNames = {"Easy", "Normal", "Hard"};
+    private String[] difficultyButtonNames = {"EASY", "NORMAL", "HARD"};
+    public static String currentDifficulty;
     private float difficultyFactor = 0;
+    private boolean birdHasCollided = false;
+
 
     public GameScreen(JumpyBirb jumpyBirb) {
 
         this.difficultyButtonsTexture = new Texture("difficultybutton.png");
         difficultyButtons = new Rectangle[3];
-        float buttonWidth = 200;
+        float buttonWidth = 150;
         float buttonHeight = 50;
-        float buttonSpacing = 20;
-        float totalHeight = (buttonHeight + buttonSpacing) * 3;
+        float buttonSpacing = 10;
+        float totalHeight = (buttonHeight + buttonSpacing) * 1;
         float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
         float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
 
@@ -79,15 +84,16 @@ public class GameScreen implements Screen {
         pillarCollision(underPillars, 4.5f);
         groundCollision();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            bird.jump();
+        if (!birdHasCollided) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                bird.jump();
+            }
         }
-        if(bird.getYposition() > 740){
-            gameOver();
+        if (bird.getYposition() > 740) {
+            birdFalling();
         }
 
         run();
-
         movePillars(underPillars, delta);
         movePillars(overPillars, delta);
 
@@ -99,7 +105,6 @@ public class GameScreen implements Screen {
         jumpyBirb.getBatch().begin();
 
         jumpyBirb.getBatch().draw(backgroundImage, 0, 0, 1280, 720);
-        bird.draw(jumpyBirb.getBatch());
 
         for (Pillar pillar : underPillars) {
             pillar.draw(jumpyBirb.getBatch());
@@ -107,6 +112,8 @@ public class GameScreen implements Screen {
         for (Pillar pillar : overPillars) {
             jumpyBirb.getBatch().draw(pillarImage, pillar.getBounds().x, pillar.getBounds().y + pillar.getBounds().height, pillar.getBounds().width, -pillar.getBounds().height);
         }
+
+        bird.draw(jumpyBirb.getBatch());
 
         for (int i = 0; i < difficultyButtons.length; i++) {
             jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
@@ -119,16 +126,22 @@ public class GameScreen implements Screen {
 
     private void pillarCollision(Array<Pillar> pillars, float velocityFactor) {
         for (int i = 0; i < pillars.size; i++) {
-            if (bird.getBounds().overlaps(pillars.get(i).getBounds()) && timeSinceLastHit > 0.1f) {
+            if (bird.getBounds().overlaps(pillars.get(i).getBounds()) && timeSinceLastHit > 0.1f && !birdHasCollided) {
                 timeSinceLastHit = 0f;
                 if (bird.getExtraLife() == 1) {
                     bird.setVelocity(velocityFactor); //-2.5 och 4.5
                     bird.setExtraLife(0);
                 } else if (bird.getExtraLife() == 0) {
-                    gameOver();
+                    birdFalling();
                 }
             }
         }
+    }
+
+    private void birdFalling() {
+        birdHasCollided = true;
+        bird.setVelocity(0);
+        bird.setGravity(-1.0f);
     }
 
     private void groundCollision() {
@@ -189,7 +202,7 @@ public class GameScreen implements Screen {
             timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
             float time = 0;
             time += Gdx.graphics.getDeltaTime();
-            if (timeSinceLastSpawn >= spawnInterval - (time / 10)){
+            if (timeSinceLastSpawn >= spawnInterval - (time / 10)) {
                 //Pillar.createPillars(1280, 430, pillarImage, underPillars, overPillars);
                 spawnPillars();
                 timeSinceLastSpawn = 0.0f;
@@ -198,6 +211,8 @@ public class GameScreen implements Screen {
     }
 
     private void gameOver() {
+        birdHasCollided = false;
+        bird.setGravity(-0.5f);
         bird.setExtraLife(1);
         movingPillarsEnabled = false;
         bird.setGravityEnabled(false);
@@ -286,6 +301,7 @@ public class GameScreen implements Screen {
             if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
                 System.out.println("Is clicking in a button");
                 updateDifficultyFactor(i);
+                currentDifficulty = difficultyButtonNames[i];
                 handleButtonClick(i);
                 return true;
             }
