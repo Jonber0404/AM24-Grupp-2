@@ -3,33 +3,23 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.List;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public class GameOverScreen implements Screen {
 
     private final JumpyBirb jumpyBirb;
-    private FreeTypeFontGenerator fontGen;
-    private FreeTypeFontParameter fontParam;
-    private BitmapFont fontSmall;
+    private final BitmapFont fontSmall;
 
     private List<ScoreWithName> highscores;
-
-    private String test;
 
 
     public GameOverScreen(JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
 
-        test = "GAME OVER";
-        fontGen = new FreeTypeFontGenerator(Gdx.files.internal("COMIC.TTF"));
-        fontParam = new FreeTypeFontParameter();
-
-        fontParam.size = 40;
-        fontSmall = fontGen.generateFont(fontParam);
+        fontSmall = TextUtil.generateFont("COMIC.TTF", 40, Color.BLACK);
 
         this.highscores = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -52,8 +42,10 @@ public class GameOverScreen implements Screen {
             jumpyBirb.newGame();
         }
         jumpyBirb.getBatch().begin();
-        fontSmall.draw(jumpyBirb.getBatch(), test + "\nScore: " + jumpyBirb.getScore() + "\nHigh Score: " + highscores.get(0).score(),
-                Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight() / 2 + 70);
+        fontSmall.draw(jumpyBirb.getBatch(), "GAME OVER\nScore: " + jumpyBirb.getScore() + "\nHigh Score: "
+                        + highscores.get(0).score(),
+                Gdx.graphics.getWidth() / 2f - 70,
+                Gdx.graphics.getHeight() / 2f + 70);
         jumpyBirb.getBatch().end();
     }
 
@@ -80,7 +72,6 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         fontSmall.dispose();
-        fontGen.dispose();
     }
 
     private void addHighScore(String name) {
