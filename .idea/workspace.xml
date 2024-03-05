@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="">
+    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
     </list>
     <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="" />
@@ -212,17 +213,6 @@
     <MESSAGE value="Refactored the project with screens" />
     <MESSAGE value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
     <option name="LAST_COMMIT_MESSAGE" value="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
