@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class GameScreen implements Screen {
 
@@ -42,6 +43,8 @@ public class GameScreen implements Screen {
     private static final float CONSTANT_DISTANCE = 200; // for example
     private float lastSpawnPosition = 0;
     private float speedIncrement = 1;
+    float nextSpawnInterval = 2;
+    float n = 2;
 
     public GameScreen(JumpyBirb jumpyBirb) {
 
@@ -77,12 +80,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         jumpyBirb.getCamera().update();
         jumpyBirb.getBatch().setProjectionMatrix(jumpyBirb.getCamera().combined);
 
         timeSinceLastHit += Gdx.graphics.getDeltaTime();
-        pillarCollision(overPillars, -2.5f);
+        pillarCollision(overPillars, -5.5f);
         pillarCollision(underPillars, 4.5f);
         groundCollision();
 
@@ -129,7 +131,7 @@ public class GameScreen implements Screen {
             if (bird.getBounds().overlaps(pillars.get(i).getBounds()) && timeSinceLastHit > 0.1f) {
                 timeSinceLastHit = 0f;
                 if (bird.getExtraLife() == 1) {
-                    bird.setVelocity(velocityFactor); //-2.5 och 4.5
+                    bird.setVelocity(velocityFactor); //-5.5 och 4.5
                     bird.setExtraLife(0);
                 } else if (bird.getExtraLife() == 0) {
                     gameOver();
@@ -192,28 +194,41 @@ public class GameScreen implements Screen {
             }
         }
         if (movingPillarsEnabled) {
-            //
+
             timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
             if (timeSinceLastSpawn >= spawnInterval){
-                float n = (timeSinceLastSpawn / INITIAL_SPAWN_INTERVAL) + 1; // Calculate the nth object
-                float nextSpawnInterval = calculateSpawnInterval(n);
 
-                // Update spawn interval
-                spawnInterval = nextSpawnInterval;
 
-                // Spawn object
+                //n = (timeSinceLastSpawn / INITIAL_SPAWN_INTERVAL) + 1;
+                //nextSpawnInterval = calculateSpawnInterval(n);
+
+
+                //spawnInterval = nextSpawnInterval;
+
+                decreaseSpawnInterval();
                 spawnPillars();
+                System.out.println(spawnInterval);
 
-                // Reset timeSinceLastSpawn
                 timeSinceLastSpawn = 0;
             }
         }
     }
 
-    private float calculateSpawnInterval(float n) {
+    private void decreaseSpawnInterval(){
+        if(difficultyFactor == 1){
+            spawnInterval *= 0.99f;
+        }
+        if(difficultyFactor == 1.05f){
+            spawnInterval *= 0.98f;
+        }
+        else if(difficultyFactor == 1.10f){
+            spawnInterval *= 0.97f;
+        }
 
-        System.out.print((float)Math.pow(difficultyFactor, n));
-        //System.out.print((2 * CONSTANT_DISTANCE) / (INITIAL_SPEED + SPEED_INCREMENT * (n - 1) * (float)Math.pow(difficultyFactor, n) ));
+    }
+
+    private float calculateSpawnInterval(float n) {
+        speedIncrement = speedIncrement * difficultyFactor;
         return (2 * CONSTANT_DISTANCE) / (INITIAL_SPEED + SPEED_INCREMENT * (n - 1) * speedIncrement);
     }
 
@@ -221,6 +236,10 @@ public class GameScreen implements Screen {
         bird.setExtraLife(1);
         movingPillarsEnabled = false;
         bird.setGravityEnabled(false);
+        spawnInterval = 2;
+        n = 2;
+        nextSpawnInterval = 2;
+
         jumpyBirb.setGameOver();
     }
 
@@ -233,7 +252,11 @@ public class GameScreen implements Screen {
     //Test test test
     private void spawnPillars() {
         int randomRange = 360;
-        float spaceBetweenPillars = 450 * (2 - difficultyFactor);
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(51) - 25;
+        //float spaceBetweenPillars = 450 * (2 - difficultyFactor);
+        float spaceBetweenPillars = (450 + randomNumber) * (2 - difficultyFactor);
         int pillarOffset = -125;
         int position = MathUtils.random(0, randomRange) + pillarOffset;
         float scale = 0.2f;

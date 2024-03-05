@@ -25,6 +25,10 @@ public class Bird {
         this.velocity = velocity;
     }
 
+    public float getVelocity() {
+        return velocity;
+    }
+
     public int getExtraLife() {
         return extraLife;
     }
