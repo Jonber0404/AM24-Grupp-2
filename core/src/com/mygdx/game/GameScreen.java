@@ -36,6 +36,13 @@ public class GameScreen implements Screen {
     private String[] difficultyButtonNames = {"Easy", "Normal", "Hard"};
     private float difficultyFactor = 0;
 
+    private static final float INITIAL_SPEED = 200;
+    private static final float SPEED_INCREMENT = 10;
+    private static final float INITIAL_SPAWN_INTERVAL = 2; // in seconds
+    private static final float CONSTANT_DISTANCE = 200; // for example
+    private float lastSpawnPosition = 0;
+    private float speedIncrement = 1;
+
     public GameScreen(JumpyBirb jumpyBirb) {
 
         this.difficultyButtonsTexture = new Texture("difficultybutton.png");
@@ -187,14 +194,27 @@ public class GameScreen implements Screen {
         if (movingPillarsEnabled) {
             //
             timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
-            float time = 0;
-            time += Gdx.graphics.getDeltaTime();
-            if (timeSinceLastSpawn >= spawnInterval - (time / 10)){
-                //Pillar.createPillars(1280, 430, pillarImage, underPillars, overPillars);
+            if (timeSinceLastSpawn >= spawnInterval){
+                float n = (timeSinceLastSpawn / INITIAL_SPAWN_INTERVAL) + 1; // Calculate the nth object
+                float nextSpawnInterval = calculateSpawnInterval(n);
+
+                // Update spawn interval
+                spawnInterval = nextSpawnInterval;
+
+                // Spawn object
                 spawnPillars();
-                timeSinceLastSpawn = 0.0f;
+
+                // Reset timeSinceLastSpawn
+                timeSinceLastSpawn = 0;
             }
         }
+    }
+
+    private float calculateSpawnInterval(float n) {
+
+        System.out.print((float)Math.pow(difficultyFactor, n));
+        //System.out.print((2 * CONSTANT_DISTANCE) / (INITIAL_SPEED + SPEED_INCREMENT * (n - 1) * (float)Math.pow(difficultyFactor, n) ));
+        return (2 * CONSTANT_DISTANCE) / (INITIAL_SPEED + SPEED_INCREMENT * (n - 1) * speedIncrement);
     }
 
     private void gameOver() {
@@ -202,7 +222,6 @@ public class GameScreen implements Screen {
         movingPillarsEnabled = false;
         bird.setGravityEnabled(false);
         jumpyBirb.setGameOver();
-        System.out.println("birdCrashed");
     }
 
 	/*private void spawnPillars() {
@@ -278,13 +297,11 @@ public class GameScreen implements Screen {
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("Is clicking");
         Vector3 touchPoint = new Vector3(screenX, screenY, 0);
         jumpyBirb.getCamera().unproject(touchPoint);
 
         for (int i = 0; i < difficultyButtons.length; i++) {
             if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
-                System.out.println("Is clicking in a button");
                 updateDifficultyFactor(i);
                 handleButtonClick(i);
                 return true;
@@ -295,7 +312,6 @@ public class GameScreen implements Screen {
 
     private void handleButtonClick(int clickedButtonIndex) {
         // Remove all buttons
-        System.out.println(difficultyFactor);
         difficultyButtons = new Rectangle[0];
     }
 
