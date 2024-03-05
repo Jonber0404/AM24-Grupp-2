@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 public class GameOverScreen implements Screen {
 
     private final JumpyBirb jumpyBirb;
-    private FreeTypeFontGenerator fontGen;
-    private FreeTypeFontParameter fontParam;
     private BitmapFont fontSmall;
 
     private List<ScoreWithName> highscores;
@@ -25,11 +24,7 @@ public class GameOverScreen implements Screen {
         this.jumpyBirb = jumpyBirb;
 
         test = "GAME OVER";
-        fontGen = new FreeTypeFontGenerator(Gdx.files.internal("COMIC.TTF"));
-        fontParam = new FreeTypeFontParameter();
-
-        fontParam.size = 40;
-        fontSmall = fontGen.generateFont(fontParam);
+        fontSmall = TextUtil.generateFont("COMIC.TTF", 40, Color.BLACK);
 
         this.highscores = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -80,7 +75,6 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         fontSmall.dispose();
-        fontGen.dispose();
     }
 
     private void addHighScore(String name) {
