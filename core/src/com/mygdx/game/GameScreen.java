@@ -207,6 +207,7 @@ public class GameScreen implements Screen {
 
                 decreaseSpawnInterval();
                 spawnPillars();
+                System.out.println(spawnInterval);
 
                 timeSinceLastSpawn = 0;
             }
@@ -214,7 +215,16 @@ public class GameScreen implements Screen {
     }
 
     private void decreaseSpawnInterval(){
-        spawnInterval *= 0.99f;
+        if(difficultyFactor == 1){
+            spawnInterval *= 0.99f;
+        }
+        if(difficultyFactor == 1.05f){
+            spawnInterval *= 0.98f;
+        }
+        else if(difficultyFactor == 1.10f){
+            spawnInterval *= 0.97f;
+        }
+
     }
 
     private float calculateSpawnInterval(float n) {
@@ -245,7 +255,6 @@ public class GameScreen implements Screen {
 
         Random random = new Random();
         int randomNumber = random.nextInt(51) - 25;
-        System.out.println(randomNumber);
         //float spaceBetweenPillars = 450 * (2 - difficultyFactor);
         float spaceBetweenPillars = (450 + randomNumber) * (2 - difficultyFactor);
         int pillarOffset = -125;
