@@ -7,23 +7,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.List;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public class GameOverScreen implements Screen {
 
     private final JumpyBirb jumpyBirb;
-    private BitmapFont fontSmall;
+    private final BitmapFont fontSmall;
 
     private List<ScoreWithName> highscores;
-
-    private String test;
 
 
     public GameOverScreen(JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
 
-        test = "GAME OVER";
         fontSmall = TextUtil.generateFont("COMIC.TTF", 40, Color.BLACK);
 
         this.highscores = new ArrayList<>();
@@ -47,8 +42,10 @@ public class GameOverScreen implements Screen {
             jumpyBirb.newGame();
         }
         jumpyBirb.getBatch().begin();
-        fontSmall.draw(jumpyBirb.getBatch(), test + "\nScore: " + jumpyBirb.getScore() + "\nHigh Score: " + highscores.get(0).score(),
-                Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight() / 2 + 70);
+        fontSmall.draw(jumpyBirb.getBatch(), "GAME OVER\nScore: " + jumpyBirb.getScore() + "\nHigh Score: "
+                        + highscores.get(0).score(),
+                Gdx.graphics.getWidth() / 2f - 70,
+                Gdx.graphics.getHeight() / 2f + 70);
         jumpyBirb.getBatch().end();
     }
 
