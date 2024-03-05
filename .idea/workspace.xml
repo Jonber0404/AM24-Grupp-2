@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="Fattar ingenting av detta, fågeln faller nedåt jättefort??? Det blev någon knas mergeconflict">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java" afterDir="false" />
+    <list default="true" id="57892559-1b32-480c-8ff7-8e91d6c9169b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/difficultybutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameInputProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Animator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameOverScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/JumpyBirb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Pillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/StartScreen.java" afterDir="false" />
     </list>
     <list id="a6d47682-23e1-4d32-9aa4-1f2616a5ee6a" name="Changes by arkbl" comment="" />
-    <list id="47f56444-44da-46c6-985f-3670400250b1" name="Changes by ludvi" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,9 +29,53 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/desktop">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="core" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="core" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="core" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JumpyBirb" type="f1a62948:ProjectNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -64,6 +105,14 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Jonte\OneDrive\Dokument\JumpyBirb\assets" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="AM24-Grupp-2 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -105,7 +154,7 @@
       <workItem from="1707205898996" duration="3046000" />
       <workItem from="1709125567568" duration="1522000" />
       <workItem from="1709193178820" duration="4875000" />
-      <workItem from="1709199474328" duration="10263000" />
+      <workItem from="1709199474328" duration="13072000" />
     </task>
     <task id="LOCAL−00001" summary="Added the lower pillar generation">
       <created>1707212890403</created>
@@ -171,15 +220,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/GameScreen.java</url>
-          <line>99</line>
-          <properties class="com.mygdx.game.GameScreen">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/core/src/com/mygdx/game/Bird.java</url>
           <line>24</line>
