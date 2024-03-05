@@ -18,6 +18,8 @@ public class JumpyBirb extends Game {
     private BitmapFont font;
     private OrthographicCamera camera;
 
+    private String currentDifficulty;
+
 
     @Override
     public void create() {
@@ -50,6 +52,14 @@ public class JumpyBirb extends Game {
 
     public void updateScore(){
         score += 1;
+    }
+
+    public void setCurrentDifficulty(String difficulty) {
+        this.currentDifficulty = difficulty;
+    }
+
+    public String getCurrentDifficulty() {
+        return currentDifficulty;
     }
 
     public SpriteBatch getBatch() {

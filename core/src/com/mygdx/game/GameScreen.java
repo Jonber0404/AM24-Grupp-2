@@ -342,12 +342,15 @@ public class GameScreen implements Screen {
         switch (i) {
             case 0:
                 difficultyFactor = 1;
+                jumpyBirb.setCurrentDifficulty("easy");
                 break;
             case 1:
                 difficultyFactor = 1.05f;
+                jumpyBirb.setCurrentDifficulty("normal");
                 break;
             case 2:
                 difficultyFactor = 1.1f;
+                jumpyBirb.setCurrentDifficulty("hard");
                 break;
         }
     }

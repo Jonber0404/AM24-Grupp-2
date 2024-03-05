@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,27 +14,24 @@ public class GameOverScreen implements Screen {
     private final JumpyBirb jumpyBirb;
     private final BitmapFont fontSmall;
 
-    private List<ScoreWithName> highscores;
-
+    private Preferences prefs;
 
     public GameOverScreen(JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
 
         fontSmall = TextUtil.generateFont("COMIC.TTF", 40, Color.BLACK);
-
-        this.highscores = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            highscores.add(new ScoreWithName("", 0));
-        }
     }
 
     @Override
     public void show() {
-        if (jumpyBirb.getScore() > highscores.get(9).score()) {
-            // Lägg till input för namn här...?
-            var placeholderName = "Bertil";
-            addHighScore(placeholderName);
-        }
+        prefs = switch (jumpyBirb.getCurrentDifficulty()) {
+            case "easy" -> Gdx.app.getPreferences("easyHighscores");
+            case "normal" -> Gdx.app.getPreferences("normalHighscores");
+            case "hard" -> Gdx.app.getPreferences("hardHighscores");
+            default -> null;
+        };
+
+        addHighScore("Bertil");
     }
 
     @Override
@@ -43,7 +41,7 @@ public class GameOverScreen implements Screen {
         }
         jumpyBirb.getBatch().begin();
         fontSmall.draw(jumpyBirb.getBatch(), "GAME OVER\nScore: " + jumpyBirb.getScore() + "\nHigh Score: "
-                        + highscores.get(0).score(),
+                        + prefs.getInteger("score" + 1),
                 Gdx.graphics.getWidth() / 2f - 70,
                 Gdx.graphics.getHeight() / 2f + 70);
         jumpyBirb.getBatch().end();
@@ -74,13 +72,23 @@ public class GameOverScreen implements Screen {
         fontSmall.dispose();
     }
 
+    /**
+     * If score is in top 10, it gets stored to preferences in the correct spot. The entrys below the score will get
+     * pushed down by 1 step if this happens.
+     * @param name the name of the player
+     */
     private void addHighScore(String name) {
-        for (int i = 0; i < 10; i++) {
-            if (jumpyBirb.getScore() > highscores.get(i).score()) {
-                highscores.add(i, new ScoreWithName(name, jumpyBirb.getScore()));
-                highscores = highscores.subList(0, 10);
+        for (int i = 1; i < 11; i++) {
+            if (jumpyBirb.getScore() > prefs.getInteger("score" + i)) {
+                for (int j = 10; j > i; j--) {
+                    prefs.putString("name" + j, prefs.getString("name" + (j - 1)));
+                    prefs.putInteger("score" + j, prefs.getInteger("score" + (j - 1)));
+                }
+                prefs.putString("name" + i, name);
+                prefs.putInteger("score" + i, jumpyBirb.getScore());
                 break;
             }
         }
+        prefs.flush();
     }
 }
