@@ -3,11 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class JumpyBirb extends Game {
 
@@ -17,28 +14,13 @@ public class JumpyBirb extends Game {
     private SpriteBatch batch;
     private int score;
     private OrthographicCamera camera;
-    private FreeTypeFontGenerator fontGen;
-    private FreeTypeFontGenerator.FreeTypeFontParameter fontParam;
-    private BitmapFont fontSmall;
-
-    private String currentDifficulty;
-
 
     @Override
     public void create() {
 
-
-
             gameScreen = new GameScreen(this);
             gameOverScreen = new GameOverScreen(this);
             batch = new SpriteBatch();
-
-            fontGen = new FreeTypeFontGenerator(Gdx.files.internal("ARCADECLASSIC.TTF"));
-            fontParam = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            fontParam.size = 40;
-            fontParam.borderWidth = 2; // Bredden på ramen
-            fontParam.borderColor = Color.BLUE; // Färgen på ramen
-            fontSmall = fontGen.generateFont(fontParam);
 
             camera = new OrthographicCamera();
             camera.setToOrtho(false,1280, 720);
@@ -66,24 +48,12 @@ public class JumpyBirb extends Game {
         score += 1;
     }
 
-    public void setCurrentDifficulty(String difficulty) {
-        this.currentDifficulty = difficulty;
-    }
-
-    public String getCurrentDifficulty() {
-        return currentDifficulty;
-    }
-
     public SpriteBatch getBatch() {
         return batch;
     }
 
     public int getScore(){
         return score;
-    }
-
-    public BitmapFont getFont() {
-        return fontSmall;
     }
 
     public Camera getCamera() {

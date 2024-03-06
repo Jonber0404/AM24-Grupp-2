@@ -2,12 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -15,28 +13,28 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 public class GameScreen implements Screen {
 
     private static final int SCREEN_CENTER_X = 1280 / 2;
     private static final int SCREEN_CENTER_Y = 720 / 2;
+    private final BitmapFont fontSmall;
     Texture pillarImage;
     Texture backgroundImage;
     Bird bird;
-    public Array<Pillar> underPillars = new Array<>();
-    public Array<Pillar> overPillars = new Array<>();
+    public Array<Pillar> underPillars;
+    public Array<Pillar> overPillars;
     float timeSinceLastHit;
     private float spawnInterval = 2.0f;
     private float timeSinceLastSpawn = 0.0f;
     private float timeSinceLastPoint = 0.0f;
-    private JumpyBirb jumpyBirb;
+    private final JumpyBirb jumpyBirb;
     private boolean movingPillarsEnabled = false;
 
-    private Texture difficultyButtonsTexture;
+    private final Texture difficultyButtonsTexture;
     private Rectangle[] difficultyButtons;
-    private String[] difficultyButtonNames = {"EASY", "NORMAL", "HARD"};
+    private final String[] difficultyButtonNames = {"EASY", "NORMAL", "HARD"};
     public static String currentDifficulty;
     private float difficultyFactor = 0;
     private boolean birdHasCollided = false;
@@ -46,8 +44,8 @@ public class GameScreen implements Screen {
     private static final float SPEED_INCREMENT = 10;
     private static final float INITIAL_SPAWN_INTERVAL = 2; // in seconds
     private static final float CONSTANT_DISTANCE = 200; // for example
-    private float lastSpawnPosition = 0;
-    private float speedIncrement = 1;
+    private final float lastSpawnPosition = 0;
+    private final float speedIncrement = 1;
     float nextSpawnInterval = 2;
     float n = 2;
 
@@ -61,6 +59,7 @@ public class GameScreen implements Screen {
         float totalHeight = (buttonHeight + buttonSpacing) * 1;
         float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
         float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
+        fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
@@ -127,7 +126,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < difficultyButtons.length; i++) {
             jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
                     difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
-            jumpyBirb.getFont().draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
+            fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
         }
 
         jumpyBirb.getBatch().end();
@@ -247,13 +246,6 @@ public class GameScreen implements Screen {
         jumpyBirb.setGameOver();
     }
 
-	/*private void spawnPillars() {
-		Array<Pillar> pillars = Pillar.createPillars(1280, 430, pillarImage, underPillars, overPillars); // Antag att pillarImage redan är laddad
-		//underPillars.add(pillars.get(0));
-		//overPillars.add(pillars.get(1));
-	}*/
-
-    //Test test test
     private void spawnPillars() {
         int randomRange = 360;
 
@@ -321,6 +313,7 @@ public class GameScreen implements Screen {
         pillarImage.dispose();
         bird.dispose();
         difficultyButtonsTexture.dispose();
+        fontSmall.dispose();
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -347,15 +340,12 @@ public class GameScreen implements Screen {
         switch (i) {
             case 0:
                 difficultyFactor = 1;
-                jumpyBirb.setCurrentDifficulty("easy");
                 break;
             case 1:
                 difficultyFactor = 1.05f;
-                jumpyBirb.setCurrentDifficulty("normal");
                 break;
             case 2:
                 difficultyFactor = 1.1f;
-                jumpyBirb.setCurrentDifficulty("hard");
                 break;
         }
     }

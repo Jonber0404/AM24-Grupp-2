@@ -6,54 +6,30 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public class GameOverScreen implements Screen {
 
     private final JumpyBirb jumpyBirb;
-    private final BitmapFont fontSmall;
 
     private Preferences prefs;
 
-    private FreeTypeFontGenerator fontGen;
-    private FreeTypeFontParameter fontParam;
-    private BitmapFont fontSmall;
-    private BitmapFont fontLarge;
-    private List<ScoreWithName> highscores;
-    private String test;
+    private final BitmapFont fontSmall;
+    private final BitmapFont fontLarge;
 
     public GameOverScreen(JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
 
-        test = "GAME OVER";
-        fontGen = new FreeTypeFontGenerator(Gdx.files.internal("ARCADECLASSIC.TTF"));
-        fontParam = new FreeTypeFontParameter();
-
-        fontParam.size = 40;
-        fontParam.borderWidth = 2; // Bredden på ramen
-        fontParam.borderColor = Color.BLUE;
-        fontSmall = fontGen.generateFont(fontParam);
-
-        fontParam.size = 60; // Exempel på en större storlek för "Game Over"
-        fontLarge = fontGen.generateFont(fontParam); // Skapa en större font för "Game Over"
-
-        this.highscores = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            highscores.add(new ScoreWithName("", 0));
-        }
+        fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
+        fontLarge = TextUtil.generate("ARCADECLASSIC.TTF", 60, Color.WHITE, 2, Color.BLUE);
     }
 
     @Override
     public void show() {
-        prefs = switch (jumpyBirb.getCurrentDifficulty()) {
-            case "easy" -> Gdx.app.getPreferences("easyHighscores");
-            case "normal" -> Gdx.app.getPreferences("normalHighscores");
-            case "hard" -> Gdx.app.getPreferences("hardHighscores");
+        prefs = switch (GameScreen.currentDifficulty) {
+            case "EASY" -> Gdx.app.getPreferences("easyHighscores");
+            case "NORMAL" -> Gdx.app.getPreferences("normalHighscores");
+            case "HARD" -> Gdx.app.getPreferences("hardHighscores");
             default -> null;
         };
 
@@ -69,14 +45,14 @@ public class GameOverScreen implements Screen {
 
         GlyphLayout gameOverLayout = new GlyphLayout(fontLarge, "GAME OVER");
         float gameOverX = (Gdx.graphics.getWidth() - gameOverLayout.width) / 2;
-        float gameOverY = Gdx.graphics.getHeight() / 2 + gameOverLayout.height * 2; // Justera Y för att flytta upp texten
+        float gameOverY = Gdx.graphics.getHeight() / 2f + gameOverLayout.height * 2; // Justera Y för att flytta upp texten
         fontLarge.draw(jumpyBirb.getBatch(), "GAME OVER", gameOverX, gameOverY);
 
         // För poängtexten
-        GlyphLayout scoreLayout = new GlyphLayout(fontSmall, "Difficulty     " + GameScreen.currentDifficulty + jumpyBirb.getScore() + "\nHigh Score     " + highscores.get(0).score());
+        GlyphLayout scoreLayout = new GlyphLayout(fontSmall, "Difficulty     " + GameScreen.currentDifficulty + jumpyBirb.getScore() + "\nHigh Score     " + prefs.getInteger("score1"));
         float scoreX = (Gdx.graphics.getWidth() - scoreLayout.width) / 2;
-        float scoreY = Gdx.graphics.getHeight() / 2 - scoreLayout.height; // Justera Y för att flytta ner texten
-        fontSmall.draw(jumpyBirb.getBatch(), "Difficulty     " + GameScreen.currentDifficulty + "\nScore     " + jumpyBirb.getScore() + "\nHigh Score     " + highscores.get(0).score(), scoreX, scoreY);
+        float scoreY = Gdx.graphics.getHeight() / 2f - scoreLayout.height; // Justera Y för att flytta ner texten
+        fontSmall.draw(jumpyBirb.getBatch(), "Difficulty     " + GameScreen.currentDifficulty + "\nScore     " + jumpyBirb.getScore() + "\nHigh Score     " + prefs.getInteger("score1"), scoreX, scoreY);
 
         jumpyBirb.getBatch().end();
 
@@ -105,6 +81,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         fontSmall.dispose();
+        fontLarge.dispose();
     }
 
     /**
