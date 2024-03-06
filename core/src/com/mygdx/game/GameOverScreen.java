@@ -86,9 +86,9 @@ public class GameOverScreen implements Screen {
                 }
                 prefs.putString("name" + i, name);
                 prefs.putInteger("score" + i, jumpyBirb.getScore());
+                prefs.flush();
                 break;
             }
         }
-        prefs.flush();
     }
 }
