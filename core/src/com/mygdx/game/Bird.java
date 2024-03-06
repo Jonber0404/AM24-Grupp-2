@@ -17,12 +17,21 @@ public class Bird {
         this.bounds = new Rectangle(0, 0, image.getWidth(), image.getHeight());
         this.extraLife = 1;
     }
-
+    public void setGravity(float gravity) {
+        this.gravity = gravity;
+    }
     public float getYposition () {
         return bounds.y;
     }
+    public float getXposition () {
+        return bounds.x;
+    }
     public void setVelocity(float velocity) {
         this.velocity = velocity;
+    }
+
+    public float getVelocity() {
+        return velocity;
     }
 
     public int getExtraLife() {
