@@ -28,6 +28,7 @@ public class Pillar {
 
     public void update(float deltaTime, int timeFactor) {
         bounds.x -= (200 + (timeFactor * 10)) * Gdx.graphics.getDeltaTime();
+        System.out.println(timeFactor);
     }
 
     public boolean isOffScreen() {

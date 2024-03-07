@@ -51,6 +51,9 @@ public class GameScreen implements Screen {
     float nextSpawnInterval = 2;
     float n = 2;
 
+    private int pillarOffset = -125;
+    private int pillarHeight = 50; //50 mitten, 250 top, -150 bottom
+
     public GameScreen(JumpyBirb jumpyBirb) {
 
         this.difficultyButtonsTexture = new Texture("difficultybutton.png");
@@ -164,7 +167,29 @@ public class GameScreen implements Screen {
         Iterator<Pillar> iter = pillars.iterator();
         while (iter.hasNext() && movingPillarsEnabled) {
             Pillar pillar = iter.next();
-            pillar.update(deltaTime, jumpyBirb.getScore());
+
+
+            if(difficultyFactor == 1.05f){//normal
+                if(jumpyBirb.getScore() < 40){
+                    pillar.update(deltaTime, jumpyBirb.getScore());
+                }
+                else {
+                    pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 10);
+                }
+
+            }
+            if(difficultyFactor == 1f){//easy
+                if(jumpyBirb.getScore() < 40){
+                    pillar.update(deltaTime, jumpyBirb.getScore());
+                }
+                else {
+                    pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 20);
+                }
+
+            }
+            else {
+                pillar.update(deltaTime, jumpyBirb.getScore());
+            }
             if (pillar.isOffScreen()) {
                 iter.remove();
             }
@@ -189,7 +214,7 @@ public class GameScreen implements Screen {
             if (bird.getBounds().x > pillarBounds.x && bird.getBounds().x < pillarBounds.x + pillarBounds.width) {
                 if (timeSinceLastPoint >= pointInterval) {
                     jumpyBirb.updateScore();
-                    System.out.println(jumpyBirb.getScore());
+                    //System.out.println(jumpyBirb.getScore());
                     timeSinceLastPoint = 0.0f;
                 }
             }
@@ -220,15 +245,35 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void decreaseSpawnInterval(){
-        if(difficultyFactor == 1){
-            spawnInterval *= 0.99f;
+    private void decreaseSpawnInterval() {
+
+        if (difficultyFactor == 1) { //EASY
+            if (jumpyBirb.getScore() > 45) {
+                spawnInterval *= 1.000001f;
+            }
+            else{
+                spawnInterval *= 0.99f;
+            }
         }
-        if(difficultyFactor == 1.05f){
-            spawnInterval *= 0.98f;
-        }
-        else if(difficultyFactor == 1.10f){
-            spawnInterval *= 0.97f;
+        if (difficultyFactor == 1.05f) { //NORMAL
+
+            if (jumpyBirb.getScore() > 40) {
+                spawnInterval *= 1.000001f;
+            }
+            else{
+                spawnInterval *= 0.98f;
+            }
+
+        } else if (difficultyFactor == 1.10f) { //HARD
+            if (jumpyBirb.getScore() < 26) {
+                spawnInterval *= 0.97f;
+            } else if(jumpyBirb.getScore() < 60){
+                spawnInterval *= 1.0001f;
+            }
+            else{
+                spawnInterval *= 0.999f;
+            }
+
         }
 
     }
@@ -258,14 +303,21 @@ public class GameScreen implements Screen {
         int randomRange = 360;
 
         Random random = new Random();
-        int randomNumber = random.nextInt(51) - 25;
-        //float spaceBetweenPillars = 450 * (2 - difficultyFactor);
-        float spaceBetweenPillars = (450 + randomNumber) * (2 - difficultyFactor);
-        int pillarOffset = -125;
+        int randomNumber1 = random.nextInt(51) - 25; //-25 till 25
+        int randomNumber2 = random.nextInt(10) + 5; //5 till 20
+        float spaceBetweenPillars = 0;
+
+        if (jumpyBirb.getScore() < 15) {
+            spaceBetweenPillars = (450 + randomNumber2) * (2 - difficultyFactor);
+        } else {
+            spaceBetweenPillars = (450 + randomNumber1) * (2 - difficultyFactor);
+        }
+
+
         int position = MathUtils.random(0, randomRange) + pillarOffset;
         float scale = 0.2f;
 
-        Pillar pillarUnder = new Pillar
+        /*Pillar pillarUnder = new Pillar
                 (1280, position - spaceBetweenPillars, pillarImage.getWidth() * scale,
                         pillarImage.getHeight() * scale);
 
@@ -275,7 +327,32 @@ public class GameScreen implements Screen {
                 (1280, position + spaceBetweenPillars, pillarImage.getWidth() * scale,
                         pillarImage.getHeight() * scale);
 
+        overPillars.add(pillarOver); */
+        int oldPillarHeight = pillarHeight;
+        while (true) {
+            pillarHeight += random.nextInt(250) - 125; //-125 till 125
+
+            if(pillarHeight < 250 && pillarHeight > -150 && (pillarHeight > oldPillarHeight + 30 || pillarHeight < oldPillarHeight - 30)){ //Ser till att nästa pelare skiljer minst 30 i höjd från den förra
+                break;
+            }
+            pillarHeight = oldPillarHeight;
+
+        }
+
+
+
+        Pillar pillarUnder = new Pillar
+                (1280, pillarHeight - spaceBetweenPillars, pillarImage.getWidth() * scale,
+                        pillarImage.getHeight() * scale);
+
+        underPillars.add(pillarUnder);
+
+        Pillar pillarOver = new Pillar
+                (1280, pillarHeight + spaceBetweenPillars, pillarImage.getWidth() * scale,
+                        pillarImage.getHeight() * scale);
+
         overPillars.add(pillarOver);
+
     }
 
     @Override
