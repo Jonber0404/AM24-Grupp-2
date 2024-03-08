@@ -21,7 +21,6 @@ public class GameScreen implements Screen {
     private static final int SCREEN_CENTER_Y = 720 / 2;
     private final BitmapFont fontSmall;
     private final BitmapFont scoreFont;
-    Texture pillarImage;
     Texture backgroundImage;
     Bird bird;
     public Array<Pillar> underPillars;
@@ -68,7 +67,6 @@ public class GameScreen implements Screen {
         this.jumpyBirb = jumpyBirb;
 
         this.backgroundImage = new Texture("background.jpg");
-        this.pillarImage = new Texture("brick_pillar_long.png");
         this.bird = new Bird("pixlybird_red.png");
 
         this.bird.setSize();
@@ -118,7 +116,7 @@ public class GameScreen implements Screen {
             pillar.draw(jumpyBirb.getBatch());
         }
         for (Pillar pillar : overPillars) {
-            jumpyBirb.getBatch().draw(pillarImage, pillar.getBounds().x, pillar.getBounds().y + pillar.getBounds().height, pillar.getBounds().width, -pillar.getBounds().height);
+            jumpyBirb.getBatch().draw(pillar.getImage(), pillar.getBounds().x, pillar.getBounds().y + pillar.getBounds().height, pillar.getBounds().width, -pillar.getBounds().height);
         }
 
         bird.draw(jumpyBirb.getBatch());
@@ -302,8 +300,6 @@ public class GameScreen implements Screen {
             spaceBetweenPillars = (450 + randomNumber1) * (2 - difficultyFactor);
         }
 
-        float scale = 0.2f;
-
         int oldPillarHeight = pillarHeight;
         while (true) {
             pillarHeight += random.nextInt(250) - 125; //-125 till 125
@@ -318,14 +314,12 @@ public class GameScreen implements Screen {
 
 
         Pillar pillarUnder = new Pillar
-                (1280, pillarHeight - spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
+                (1280, pillarHeight - spaceBetweenPillars);
 
         underPillars.add(pillarUnder);
 
         Pillar pillarOver = new Pillar
-                (1280, pillarHeight + spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
+                (1280, pillarHeight + spaceBetweenPillars);
 
         overPillars.add(pillarOver);
 
@@ -372,7 +366,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         backgroundImage.dispose();
-        pillarImage.dispose();
         bird.dispose();
         difficultyButtonsTexture.dispose();
         fontSmall.dispose();
