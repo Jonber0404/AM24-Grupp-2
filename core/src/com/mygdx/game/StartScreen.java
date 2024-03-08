@@ -16,7 +16,7 @@ public class StartScreen implements Screen {
     public StartScreen(final JumpyBirb jumpyBirb) {
         this.jumpyBirb = jumpyBirb;
         this.background = new Texture("background.jpg");
-        this.bird = new Bird("pixlybird_red.png");
+        this.bird = new Bird("birbsheet.png");
 
         this.bird.setSize();
 
