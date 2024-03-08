@@ -12,14 +12,14 @@ import java.util.List;
 
 public class Pillar {
     private Rectangle bounds;
-    private static Texture image = new Texture("brick_pillar_long.png");
+    private static Texture image = new Texture("bean.png");
     private float time;
     private final float scale;
 
     public Pillar(float x, float y) {
         scale = 0.2f;
         if (image == null) {
-            image = new Texture("brick_pillar_long.png"); // Ladda textur om den inte redan är laddad
+            image = new Texture("bean.png"); // Ladda textur om den inte redan är laddad
         }
         bounds = new Rectangle(x, y, image.getWidth() * scale, image.getHeight() * scale);
     }
