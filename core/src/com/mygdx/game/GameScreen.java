@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
     private float timeSinceLastPoint = 0.0f;
     private final JumpyBirb jumpyBirb;
     private boolean movingPillarsEnabled = false;
+    private final Sound jumpSound;
 
     private final Texture difficultyButtonsTexture;
     private Rectangle[] difficultyButtons;
@@ -56,6 +58,7 @@ public class GameScreen implements Screen {
         float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
         scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump_sound_1.mp3"));
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
@@ -91,6 +94,7 @@ public class GameScreen implements Screen {
         if (!birdHasCollided) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 bird.jump();
+                jumpSound.play();
             }
         }
         if (bird.getYposition() > 740) {
@@ -372,6 +376,8 @@ public class GameScreen implements Screen {
         bird.dispose();
         difficultyButtonsTexture.dispose();
         fontSmall.dispose();
+        scoreFont.dispose();
+        jumpSound.dispose();
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
