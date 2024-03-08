@@ -19,7 +19,8 @@ public class GameScreen implements Screen {
 
     private static final int SCREEN_CENTER_X = 1280 / 2;
     private static final int SCREEN_CENTER_Y = 720 / 2;
-    private final BitmapFont fontSmall;
+    private BitmapFont fontSmall;
+    private final BitmapFont scoreFont;
     Texture pillarImage;
     Texture backgroundImage;
     Bird bird;
@@ -60,6 +61,7 @@ public class GameScreen implements Screen {
         float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
         float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
+        scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
@@ -129,6 +131,9 @@ public class GameScreen implements Screen {
             fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
         }
 
+        fontSmall.draw(jumpyBirb.getBatch(), "SCORE", 30f, 680);
+        scoreFont.draw(jumpyBirb.getBatch(), String.valueOf(jumpyBirb.getScore()), 30f, 640f);
+
         jumpyBirb.getBatch().end();
     }
 
@@ -186,7 +191,7 @@ public class GameScreen implements Screen {
         for (Pillar underPillar : underPillars) {
             Rectangle pillarBounds = underPillar.getBounds();
             if (bird.getBounds().x > pillarBounds.x && bird.getBounds().x < pillarBounds.x + pillarBounds.width) {
-                if (timeSinceLastPoint >= pointInterval) {
+                if (timeSinceLastPoint >= pointInterval && !birdHasCollided) {
                     jumpyBirb.updateScore();
                     System.out.println(jumpyBirb.getScore());
                     timeSinceLastPoint = 0.0f;
@@ -234,7 +239,6 @@ public class GameScreen implements Screen {
 
 
     private void gameOver() {
-        birdHasCollided = false;
         bird.setGravity(-0.5f);
         bird.setExtraLife(1);
         movingPillarsEnabled = false;
@@ -242,7 +246,6 @@ public class GameScreen implements Screen {
         spawnInterval = 2;
         n = 2;
         nextSpawnInterval = 2;
-
         jumpyBirb.setGameOver();
     }
 
@@ -279,6 +282,7 @@ public class GameScreen implements Screen {
      * Resets everything to initial values
      */
     private void resetGame() {
+        birdHasCollided = false;
         underPillars.clear();
         overPillars.clear();
         bird.setGravityEnabled(false);
