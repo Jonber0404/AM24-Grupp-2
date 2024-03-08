@@ -1,11 +1,20 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+
+import javax.swing.plaf.nimbus.State;
 
 public class Bird {
-    private static final float SCALE = 0.1f;
-    private Texture image;
+    private static final float SCALE = 2.2f;        // previously 0.1f, controls the scale of the bird sprite
+
+    private Animatronica birdAnimation;
+    private Texture birdTexture;
+
+    //private Texture image;
     private Rectangle bounds;
     private float velocity = 0;
     private float gravity = -0.5f;
@@ -13,10 +22,23 @@ public class Bird {
     private boolean gravityEnabled = false;
 
     public Bird(String imagePath) {
-        this.image = new Texture(imagePath);
-        this.bounds = new Rectangle(0, 0, image.getWidth(), image.getHeight());
+        //this.image = new Texture(imagePath);
         this.extraLife = 1;
+
+        birdTexture = new Texture(imagePath);
+        birdAnimation = new Animatronica(new TextureRegion(birdTexture), 8, 0.5f);
+
+        this.bounds = new Rectangle(0, 0, birdTexture.getWidth(), birdTexture.getHeight());
     }
+
+    public void updateAnimations(float dt) {
+        birdAnimation.update(dt);
+    }
+
+    public TextureRegion getBirdTexture(){
+        return birdAnimation.getFrame();
+    }
+
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
@@ -43,12 +65,12 @@ public class Bird {
     }
 
     public void setSize() {
-        bounds.setWidth(image.getWidth() * SCALE);
-        bounds.setHeight(image.getHeight() * SCALE);
+        bounds.setWidth(getBirdTexture().getRegionWidth() / 2f * SCALE);   // previously image.getWidth();
+        bounds.setHeight(getBirdTexture().getRegionHeight() / 2f * SCALE); // previously image.getHeight();
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(image, bounds.x, bounds.y, bounds.width, bounds.height);
+        batch.draw(getBirdTexture(), bounds.x, bounds.y, bounds.width, bounds.height);  // previously image
     }
 
     public void gravity() {
@@ -77,6 +99,6 @@ public class Bird {
     }
 
     public void dispose() {
-        image.dispose();
+        birdTexture.dispose();
     }
 }
