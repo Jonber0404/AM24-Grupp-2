@@ -70,7 +70,8 @@ public class GameScreen implements Screen {
 
         this.backgroundImage = new Texture("background.jpg");
         this.pillarImage = new Texture("brick_pillar_long.png");
-        this.bird = new Bird("pixlybird_red.png");
+        // original image path was not an animation.
+        this.bird = new Bird("birbsheet.png");
 
         this.bird.setSize();
 
