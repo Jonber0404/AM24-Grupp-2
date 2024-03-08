@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -19,7 +18,7 @@ public class GameScreen implements Screen {
 
     private static final int SCREEN_CENTER_X = 1280 / 2;
     private static final int SCREEN_CENTER_Y = 720 / 2;
-    private BitmapFont fontSmall;
+    private final BitmapFont fontSmall;
     private final BitmapFont scoreFont;
     Texture pillarImage;
     Texture backgroundImage;
@@ -40,17 +39,9 @@ public class GameScreen implements Screen {
     private float difficultyFactor = 0;
     private boolean birdHasCollided = false;
 
-
-    private static final float INITIAL_SPEED = 200;
-    private static final float SPEED_INCREMENT = 10;
-    private static final float INITIAL_SPAWN_INTERVAL = 2; // in seconds
-    private static final float CONSTANT_DISTANCE = 200; // for example
-    private final float lastSpawnPosition = 0;
-    private final float speedIncrement = 1;
     float nextSpawnInterval = 2;
     float n = 2;
 
-    private int pillarOffset = -125;
     private int pillarHeight = 50; //50 mitten, 250 top, -150 bottom
 
     public GameScreen(JumpyBirb jumpyBirb) {
@@ -295,12 +286,11 @@ public class GameScreen implements Screen {
     }
 
     private void spawnPillars() {
-        int randomRange = 360;
 
         Random random = new Random();
         int randomNumber1 = random.nextInt(51) - 25; //-25 till 25
         int randomNumber2 = random.nextInt(10) + 5; //5 till 20
-        float spaceBetweenPillars = 0;
+        float spaceBetweenPillars;
 
         if (jumpyBirb.getScore() < 15) {
             spaceBetweenPillars = (450 + randomNumber2) * (2 - difficultyFactor);
@@ -308,21 +298,8 @@ public class GameScreen implements Screen {
             spaceBetweenPillars = (450 + randomNumber1) * (2 - difficultyFactor);
         }
 
-
-        int position = MathUtils.random(0, randomRange) + pillarOffset;
         float scale = 0.2f;
 
-        /*Pillar pillarUnder = new Pillar
-                (1280, position - spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
-
-        underPillars.add(pillarUnder);
-
-        Pillar pillarOver = new Pillar
-                (1280, position + spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
-
-        overPillars.add(pillarOver); */
         int oldPillarHeight = pillarHeight;
         while (true) {
             pillarHeight += random.nextInt(250) - 125; //-125 till 125

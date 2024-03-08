@@ -26,7 +26,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-        System.out.println(jumpyBirb.getScore());
         prefs = switch (GameScreen.currentDifficulty) {
             case "EASY" -> Gdx.app.getPreferences("easyHighscores");
             case "NORMAL" -> Gdx.app.getPreferences("normalHighscores");
