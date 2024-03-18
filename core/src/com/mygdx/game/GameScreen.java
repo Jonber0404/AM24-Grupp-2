@@ -129,8 +129,8 @@ public class GameScreen implements Screen {
         bird.draw(jumpyBirb.getBatch());
 
         for (int i = 0; i < difficultyButtons.length; i++) {
-            jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
-                    difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
+          //  jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
+          //          difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
             fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
         }
 

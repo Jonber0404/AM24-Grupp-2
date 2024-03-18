@@ -18,7 +18,8 @@ public class Animatronica {
         // Because the spritesheet is vertical we have to frameHeight here instead of the more classical frameWidth.
         int frameHeight = region.getRegionHeight() / frameCount;
         for(int i = 0; i < frameCount; i++){
-            frames.add(new TextureRegion(region, i * frameHeight, 0, region.getRegionWidth(), frameHeight));
+            frames.add(new TextureRegion(region, 0, i * frameHeight, region.getRegionWidth(), frameHeight));
+
         }
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
