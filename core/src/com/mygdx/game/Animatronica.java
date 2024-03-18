@@ -1,10 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 public class Animatronica {
-    private static final int FRAME_COLS = 8, FRAME_ROWS = 1;
+    private static final int FRAME_COLS = 1, FRAME_ROWS = 3;
     private Array<TextureRegion> frames;
     private float maxFrameTime;
     private float currentFrameTime;
@@ -13,9 +14,11 @@ public class Animatronica {
 
     public Animatronica (TextureRegion region, int frameCount, float cycleTime){
         frames = new Array<TextureRegion>();
-        int frameWidth = region.getRegionWidth() / frameCount;
+
+        // Because the spritesheet is vertical we have to frameHeight here instead of the more classical frameWidth.
+        int frameHeight = region.getRegionHeight() / frameCount;
         for(int i = 0; i < frameCount; i++){
-            frames.add(new TextureRegion(region, i * frameWidth, 0, frameWidth, region.getRegionHeight()));
+            frames.add(new TextureRegion(region, i * frameHeight, 0, region.getRegionWidth(), frameHeight));
         }
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
@@ -24,7 +27,7 @@ public class Animatronica {
 
     public void update(float dt){
         currentFrameTime += dt;
-        if(currentFrame > maxFrameTime){
+        if(currentFrameTime > maxFrameTime){
             currentFrame++;
             currentFrameTime = 0;
         }

@@ -13,6 +13,7 @@ public class Bird {
 
     private Animatronica birdAnimation;
     private Texture birdTexture;
+    private final Texture birdSizeLimiter;
 
     //private Texture image;
     private Rectangle bounds;
@@ -26,9 +27,11 @@ public class Bird {
         this.extraLife = 1;
 
         birdTexture = new Texture(imagePath);
-        birdAnimation = new Animatronica(new TextureRegion(birdTexture), 8, 0.5f);
+        birdAnimation = new Animatronica(new TextureRegion(birdTexture), 3, 0.5f);
+        birdSizeLimiter = new Texture("birbSizeLimiter.png");
 
-        this.bounds = new Rectangle(0, 0, birdTexture.getWidth(), birdTexture.getHeight());
+        // birdSizeLimiter was previously birdTexture
+        this.bounds = new Rectangle(0, 0, birdSizeLimiter.getWidth(), birdSizeLimiter.getHeight());
     }
 
     public void updateAnimations(float dt) {
@@ -38,6 +41,8 @@ public class Bird {
     public TextureRegion getBirdTexture(){
         return birdAnimation.getFrame();
     }
+
+    public Texture getBirdSize() { return birdSizeLimiter; }
 
     public void setGravity(float gravity) {
         this.gravity = gravity;
@@ -65,8 +70,8 @@ public class Bird {
     }
 
     public void setSize() {
-        bounds.setWidth(getBirdTexture().getRegionWidth() / 2f * SCALE);   // previously image.getWidth();
-        bounds.setHeight(getBirdTexture().getRegionHeight() / 2f * SCALE); // previously image.getHeight();
+        bounds.setWidth(getBirdSize().getWidth() / 2f * SCALE);
+        bounds.setHeight(getBirdSize().getHeight() / 2f * SCALE);
     }
 
     public void draw(SpriteBatch batch) {
