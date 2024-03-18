@@ -12,14 +12,16 @@ import java.util.List;
 
 public class Pillar {
     private Rectangle bounds;
-    private static Texture image = new Texture("brick_pillar_long.png");
+    private static Texture image = new Texture("bean.png");
     private float time;
+    private final float scale;
 
-    public Pillar(float x, float y, float width, float height) {
+    public Pillar(float x, float y) {
+        scale = 0.2f;
         if (image == null) {
-            image = new Texture("brick_pillar_long.png"); // Ladda textur om den inte redan är laddad
+            image = new Texture("bean.png"); // Ladda textur om den inte redan är laddad
         }
-        bounds = new Rectangle(x, y, width, height);
+        bounds = new Rectangle(x, y, image.getWidth() * scale, image.getHeight() * scale);
     }
 
     public Rectangle getBounds() {
@@ -28,6 +30,11 @@ public class Pillar {
 
     public void update(float deltaTime, int timeFactor) {
         bounds.x -= (200 + (timeFactor * 10)) * Gdx.graphics.getDeltaTime();
+        System.out.println(timeFactor);
+    }
+
+    public Texture getImage() {
+        return image;
     }
 
     public boolean isOffScreen() {
@@ -46,12 +53,12 @@ public class Pillar {
 
         // Skapa den undre pelaren med dess position som baseras på `position - spaceBetween`
         Pillar underPillar = new Pillar(
-                xPosition, position - spaceBetween, image.getWidth() * scale, image.getHeight() * scale);
+                xPosition, position - spaceBetween);
         underPillars.add(underPillar);
         // Korrigera positionen för den övre pelaren så att den tar hänsyn till den faktiska höjden på pelaren
         // och det definierade mellanrummet mellan pelarna.
         Pillar overPillar = new Pillar(
-                xPosition, position + spaceBetween, image.getWidth() * scale, image.getHeight() * scale);
+                xPosition, position + spaceBetween);
         overPillars.add(overPillar);
 
 

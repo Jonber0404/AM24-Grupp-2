@@ -3,11 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
     private static final int SCREEN_CENTER_X = 1280 / 2;
     private static final int SCREEN_CENTER_Y = 720 / 2;
     private final BitmapFont fontSmall;
-    Texture pillarImage;
+    private final BitmapFont scoreFont;
     Texture backgroundImage;
     Bird bird;
     public Array<Pillar> underPillars;
@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
     private float timeSinceLastPoint = 0.0f;
     private final JumpyBirb jumpyBirb;
     private boolean movingPillarsEnabled = false;
+    private final Sound jumpSound;
 
     private final Texture difficultyButtonsTexture;
     private Rectangle[] difficultyButtons;
@@ -40,15 +41,10 @@ public class GameScreen implements Screen {
     private float difficultyFactor = 0;
     private boolean birdHasCollided = false;
 
-
-    private static final float INITIAL_SPEED = 200;
-    private static final float SPEED_INCREMENT = 10;
-    private static final float INITIAL_SPAWN_INTERVAL = 2; // in seconds
-    private static final float CONSTANT_DISTANCE = 200; // for example
-    private final float lastSpawnPosition = 0;
-    private final float speedIncrement = 1;
     float nextSpawnInterval = 2;
     float n = 2;
+
+    private int pillarHeight = 50; //50 mitten, 250 top, -150 bottom
 
     public GameScreen(JumpyBirb jumpyBirb) {
 
@@ -61,6 +57,8 @@ public class GameScreen implements Screen {
         float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
         float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
+        scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump_sound_1.mp3"));
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
@@ -70,7 +68,6 @@ public class GameScreen implements Screen {
         this.jumpyBirb = jumpyBirb;
 
         this.backgroundImage = new Texture("background.jpg");
-        this.pillarImage = new Texture("brick_pillar_long.png");
         // original image path was not an animation.
         this.bird = new Bird("birbsheet.png");
 
@@ -100,6 +97,7 @@ public class GameScreen implements Screen {
         if (!birdHasCollided) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 bird.jump();
+                jumpSound.play();
             }
         }
         if (bird.getYposition() > 740) {
@@ -123,16 +121,19 @@ public class GameScreen implements Screen {
             pillar.draw(jumpyBirb.getBatch());
         }
         for (Pillar pillar : overPillars) {
-            jumpyBirb.getBatch().draw(pillarImage, pillar.getBounds().x, pillar.getBounds().y + pillar.getBounds().height, pillar.getBounds().width, -pillar.getBounds().height);
+            jumpyBirb.getBatch().draw(pillar.getImage(), pillar.getBounds().x, pillar.getBounds().y + pillar.getBounds().height, pillar.getBounds().width, -pillar.getBounds().height);
         }
 
         bird.draw(jumpyBirb.getBatch());
 
         for (int i = 0; i < difficultyButtons.length; i++) {
-          //  jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
-          //          difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
+            jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
+                    difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
             fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
         }
+
+        fontSmall.draw(jumpyBirb.getBatch(), "SCORE", 30f, 680);
+        scoreFont.draw(jumpyBirb.getBatch(), String.valueOf(jumpyBirb.getScore()), 30f, 640f);
 
         jumpyBirb.getBatch().end();
     }
@@ -168,7 +169,29 @@ public class GameScreen implements Screen {
         Iterator<Pillar> iter = pillars.iterator();
         while (iter.hasNext() && movingPillarsEnabled) {
             Pillar pillar = iter.next();
-            pillar.update(deltaTime, jumpyBirb.getScore());
+
+
+            if(difficultyFactor == 1.05f){//normal
+                if(jumpyBirb.getScore() < 40){
+                    pillar.update(deltaTime, jumpyBirb.getScore());
+                }
+                else {
+                    pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 10);
+                }
+
+            }
+            if(difficultyFactor == 1f){//easy
+                if(jumpyBirb.getScore() < 40){
+                    pillar.update(deltaTime, jumpyBirb.getScore());
+                }
+                else {
+                    pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 20);
+                }
+
+            }
+            else {
+                pillar.update(deltaTime, jumpyBirb.getScore());
+            }
             if (pillar.isOffScreen()) {
                 iter.remove();
             }
@@ -191,9 +214,9 @@ public class GameScreen implements Screen {
         for (Pillar underPillar : underPillars) {
             Rectangle pillarBounds = underPillar.getBounds();
             if (bird.getBounds().x > pillarBounds.x && bird.getBounds().x < pillarBounds.x + pillarBounds.width) {
-                if (timeSinceLastPoint >= pointInterval) {
+                if (timeSinceLastPoint >= pointInterval && !birdHasCollided) {
                     jumpyBirb.updateScore();
-                    System.out.println(jumpyBirb.getScore());
+                    //System.out.println(jumpyBirb.getScore());
                     timeSinceLastPoint = 0.0f;
                 }
             }
@@ -224,22 +247,41 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void decreaseSpawnInterval(){
-        if(difficultyFactor == 1){
-            spawnInterval *= 0.99f;
+    private void decreaseSpawnInterval() {
+
+        if (difficultyFactor == 1) { //EASY
+            if (jumpyBirb.getScore() > 45) {
+                spawnInterval *= 1.000001f;
+            }
+            else{
+                spawnInterval *= 0.99f;
+            }
         }
-        if(difficultyFactor == 1.05f){
-            spawnInterval *= 0.98f;
-        }
-        else if(difficultyFactor == 1.10f){
-            spawnInterval *= 0.97f;
+        if (difficultyFactor == 1.05f) { //NORMAL
+
+            if (jumpyBirb.getScore() > 40) {
+                spawnInterval *= 1.000001f;
+            }
+            else{
+                spawnInterval *= 0.98f;
+            }
+
+        } else if (difficultyFactor == 1.10f) { //HARD
+            if (jumpyBirb.getScore() < 26) {
+                spawnInterval *= 0.97f;
+            } else if(jumpyBirb.getScore() < 60){
+                spawnInterval *= 1.0001f;
+            }
+            else{
+                spawnInterval *= 0.999f;
+            }
+
         }
 
     }
 
 
     private void gameOver() {
-        birdHasCollided = false;
         bird.setGravity(-0.5f);
         bird.setExtraLife(1);
         movingPillarsEnabled = false;
@@ -247,32 +289,45 @@ public class GameScreen implements Screen {
         spawnInterval = 2;
         n = 2;
         nextSpawnInterval = 2;
-
         jumpyBirb.setGameOver();
     }
 
     private void spawnPillars() {
-        int randomRange = 360;
 
         Random random = new Random();
-        int randomNumber = random.nextInt(51) - 25;
-        //float spaceBetweenPillars = 450 * (2 - difficultyFactor);
-        float spaceBetweenPillars = (450 + randomNumber) * (2 - difficultyFactor);
-        int pillarOffset = -125;
-        int position = MathUtils.random(0, randomRange) + pillarOffset;
-        float scale = 0.2f;
+        int randomNumber1 = random.nextInt(51) - 25; //-25 till 25
+        int randomNumber2 = random.nextInt(10) + 5; //5 till 20
+        float spaceBetweenPillars;
+
+        if (jumpyBirb.getScore() < 15) {
+            spaceBetweenPillars = (450 + randomNumber2) * (2 - difficultyFactor);
+        } else {
+            spaceBetweenPillars = (450 + randomNumber1) * (2 - difficultyFactor);
+        }
+
+        int oldPillarHeight = pillarHeight;
+        while (true) {
+            pillarHeight += random.nextInt(250) - 125; //-125 till 125
+
+            if(pillarHeight < 250 && pillarHeight > -150 && (pillarHeight > oldPillarHeight + 30 || pillarHeight < oldPillarHeight - 30)){ //Ser till att nästa pelare skiljer minst 30 i höjd från den förra
+                break;
+            }
+            pillarHeight = oldPillarHeight;
+
+        }
+
+
 
         Pillar pillarUnder = new Pillar
-                (1280, position - spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
+                (1280, pillarHeight - spaceBetweenPillars);
 
         underPillars.add(pillarUnder);
 
         Pillar pillarOver = new Pillar
-                (1280, position + spaceBetweenPillars, pillarImage.getWidth() * scale,
-                        pillarImage.getHeight() * scale);
+                (1280, pillarHeight + spaceBetweenPillars);
 
         overPillars.add(pillarOver);
+
     }
 
     @Override
@@ -284,6 +339,7 @@ public class GameScreen implements Screen {
      * Resets everything to initial values
      */
     private void resetGame() {
+        birdHasCollided = false;
         underPillars.clear();
         overPillars.clear();
         bird.setGravityEnabled(false);
@@ -315,10 +371,11 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         backgroundImage.dispose();
-        pillarImage.dispose();
         bird.dispose();
         difficultyButtonsTexture.dispose();
         fontSmall.dispose();
+        scoreFont.dispose();
+        jumpSound.dispose();
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
