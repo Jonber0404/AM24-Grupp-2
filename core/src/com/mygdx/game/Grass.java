@@ -18,12 +18,12 @@ public class Grass {
     }
 
     public void update(float deltaTime) {
-        int test = 0;
-        x -= speed * Gdx.graphics.getDeltaTime();
+        speed = Pillar.getPillarSpeed();
+        x -= speed;
+
         if (x < -grassTexture.getWidth()) {
             // När gräset har rört sig helt utanför skärmen till vänster, flytta det till höger
-            test++;
-            System.out.println("Flyttat gräs till höger " + test + " gånger");
+            System.out.println("Flyttat gräs");
             x = Gdx.graphics.getWidth();
         }
     }

@@ -15,6 +15,7 @@ public class Pillar {
     private static Texture image = new Texture("bean.png");
     private float time;
     private final float scale;
+    private static float pillarSpeed;
 
     public Pillar(float x, float y) {
         scale = 0.2f;
@@ -29,7 +30,12 @@ public class Pillar {
     }
 
     public void update(float deltaTime, int timeFactor) {
-        bounds.x -= (200 + (timeFactor * 10)) * Gdx.graphics.getDeltaTime();
+        pillarSpeed = (200 + (timeFactor * 10)) * Gdx.graphics.getDeltaTime();
+        bounds.x -= pillarSpeed;
+    }
+
+    public static float getPillarSpeed() {
+        return pillarSpeed;
     }
 
     public Texture getImage() {

@@ -87,7 +87,7 @@ public class GameScreen implements Screen {
         this.underPillars = new Array<>();
 
         //   GRÄS
-        for (int i = 0; i < Gdx.graphics.getWidth() / grassTexture.getWidth() + 1; i++) {
+        for (float i = 0; i < Gdx.graphics.getWidth() / grassTexture.getWidth() + 2; i+= 0.5) {
             grassList.add(new Grass(i * grassTexture.getWidth(), 0, 100, grassTexture)); // Y-positionen kan ändras beroende på var du vill placera gräset
         }
         // GRÄS
@@ -103,7 +103,6 @@ public class GameScreen implements Screen {
         float deltaTime = Gdx.graphics.getDeltaTime();
         for (Grass grass : grassList) {
             grass.update(deltaTime);
-            System.out.println(grassList.size());
         }
         // GRÄS ------------------
 
@@ -240,7 +239,6 @@ public class GameScreen implements Screen {
             if (bird.getBounds().x > pillarBounds.x && bird.getBounds().x < pillarBounds.x + pillarBounds.width) {
                 if (timeSinceLastPoint >= pointInterval && !birdHasCollided) {
                     jumpyBirb.updateScore();
-                    //System.out.println(jumpyBirb.getScore());
                     timeSinceLastPoint = 0.0f;
                 }
             }
