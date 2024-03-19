@@ -269,6 +269,9 @@ public class GameScreen implements Screen {
 
             }
         }
+        else{
+            Pillar.setPillarSpeed(3.33f);
+        }
     }
 
     private void decreaseSpawnInterval() {

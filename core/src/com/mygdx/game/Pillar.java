@@ -38,6 +38,10 @@ public class Pillar {
         return pillarSpeed;
     }
 
+    public static void setPillarSpeed(float pillarSpeed) {
+        Pillar.pillarSpeed = pillarSpeed;
+    }
+
     public Texture getImage() {
         return image;
     }
