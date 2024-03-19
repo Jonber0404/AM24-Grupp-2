@@ -13,7 +13,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class GameScreen implements Screen {
@@ -45,6 +47,9 @@ public class GameScreen implements Screen {
     float n = 2;
 
     private int pillarHeight = 50; //50 mitten, 250 top, -150 bottom
+    List<Grass> grassList = new ArrayList<>();
+    Texture grassTexture = new Texture("grass.png");
+
 
     public GameScreen(JumpyBirb jumpyBirb) {
 
@@ -59,6 +64,7 @@ public class GameScreen implements Screen {
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
         scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump_sound_1.mp3"));
+
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
@@ -79,12 +85,27 @@ public class GameScreen implements Screen {
 
         this.overPillars = new Array<>();
         this.underPillars = new Array<>();
+
+        //   GRÄS
+        for (int i = 0; i < Gdx.graphics.getWidth() / grassTexture.getWidth() + 1; i++) {
+            grassList.add(new Grass(i * grassTexture.getWidth(), 0, 100, grassTexture)); // Y-positionen kan ändras beroende på var du vill placera gräset
+        }
+        // GRÄS
+
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.bird.updateAnimations(Gdx.graphics.getDeltaTime());
+
+        // GRÄS --------------------
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        for (Grass grass : grassList) {
+            grass.update(deltaTime);
+            System.out.println(grassList.size());
+        }
+        // GRÄS ------------------
 
         jumpyBirb.getCamera().update();
         jumpyBirb.getBatch().setProjectionMatrix(jumpyBirb.getCamera().combined);
@@ -135,6 +156,12 @@ public class GameScreen implements Screen {
         fontSmall.draw(jumpyBirb.getBatch(), "SCORE", 30f, 680);
         scoreFont.draw(jumpyBirb.getBatch(), String.valueOf(jumpyBirb.getScore()), 30f, 640f);
 
+        // GRÄS ------------------
+        for (Grass grass : grassList) {
+            grass.draw(jumpyBirb.getBatch());
+        }
+        // GRÄS ------------------
+
         jumpyBirb.getBatch().end();
     }
 
@@ -171,25 +198,22 @@ public class GameScreen implements Screen {
             Pillar pillar = iter.next();
 
 
-            if(difficultyFactor == 1.05f){//normal
-                if(jumpyBirb.getScore() < 40){
+            if (difficultyFactor == 1.05f) {//normal
+                if (jumpyBirb.getScore() < 40) {
                     pillar.update(deltaTime, jumpyBirb.getScore());
-                }
-                else {
+                } else {
                     pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 10);
                 }
 
             }
-            if(difficultyFactor == 1f){//easy
-                if(jumpyBirb.getScore() < 40){
+            if (difficultyFactor == 1f) {//easy
+                if (jumpyBirb.getScore() < 40) {
                     pillar.update(deltaTime, jumpyBirb.getScore());
-                }
-                else {
+                } else {
                     pillar.update(deltaTime, 40 + (jumpyBirb.getScore()) / 20);
                 }
 
-            }
-            else {
+            } else {
                 pillar.update(deltaTime, jumpyBirb.getScore());
             }
             if (pillar.isOffScreen()) {
@@ -235,6 +259,8 @@ public class GameScreen implements Screen {
         }
         if (movingPillarsEnabled) {
 
+
+
             timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
 
             if (timeSinceLastSpawn >= spawnInterval) {
@@ -252,8 +278,7 @@ public class GameScreen implements Screen {
         if (difficultyFactor == 1) { //EASY
             if (jumpyBirb.getScore() > 45) {
                 spawnInterval *= 1.000001f;
-            }
-            else{
+            } else {
                 spawnInterval *= 0.99f;
             }
         }
@@ -261,18 +286,16 @@ public class GameScreen implements Screen {
 
             if (jumpyBirb.getScore() > 40) {
                 spawnInterval *= 1.000001f;
-            }
-            else{
+            } else {
                 spawnInterval *= 0.98f;
             }
 
         } else if (difficultyFactor == 1.10f) { //HARD
             if (jumpyBirb.getScore() < 26) {
                 spawnInterval *= 0.97f;
-            } else if(jumpyBirb.getScore() < 60){
+            } else if (jumpyBirb.getScore() < 60) {
                 spawnInterval *= 1.0001f;
-            }
-            else{
+            } else {
                 spawnInterval *= 0.999f;
             }
 
@@ -309,13 +332,12 @@ public class GameScreen implements Screen {
         while (true) {
             pillarHeight += random.nextInt(250) - 125; //-125 till 125
 
-            if(pillarHeight < 250 && pillarHeight > -150 && (pillarHeight > oldPillarHeight + 30 || pillarHeight < oldPillarHeight - 30)){ //Ser till att nästa pelare skiljer minst 30 i höjd från den förra
+            if (pillarHeight < 250 && pillarHeight > -150 && (pillarHeight > oldPillarHeight + 30 || pillarHeight < oldPillarHeight - 30)) { //Ser till att nästa pelare skiljer minst 30 i höjd från den förra
                 break;
             }
             pillarHeight = oldPillarHeight;
 
         }
-
 
 
         Pillar pillarUnder = new Pillar
