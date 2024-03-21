@@ -18,7 +18,7 @@ public class Grass {
     }
 
     public void update(float deltaTime) {
-        speed = Pillar.getPillarSpeed();
+        speed = Pillar.getPillarSpeed() * 0.5f;
         x -= speed;
 
         if (x < -grassTexture.getWidth()) {

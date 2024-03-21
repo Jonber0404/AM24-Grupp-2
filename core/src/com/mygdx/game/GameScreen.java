@@ -43,6 +43,11 @@ public class GameScreen implements Screen {
     private float difficultyFactor = 0;
     private boolean birdHasCollided = false;
 
+    private Texture arrowTexture;
+    private Rectangle arrow;
+    private int arrowValue = 2; //Mellan 1 och 3, 1 lätt 2 normal 3 svårt
+    private boolean difficultyChosen = false;
+
     float nextSpawnInterval = 2;
     float n = 2;
 
@@ -64,12 +69,17 @@ public class GameScreen implements Screen {
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
         scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump_sound_1.mp3"));
+        this.arrowTexture = new Texture("Arrow.png");
 
 
         // Set positions for buttons
         for (int i = 0; i < difficultyButtons.length; i++) {
             difficultyButtons[i] = new Rectangle(buttonX, startY - i * (buttonHeight + buttonSpacing), buttonWidth, buttonHeight);
         }
+
+        //Arrow start position
+        arrow = new Rectangle(difficultyButtons[1].x - 200, difficultyButtons[1].y, 150, 50);
+
 
         this.jumpyBirb = jumpyBirb;
 
@@ -151,6 +161,7 @@ public class GameScreen implements Screen {
                     difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
             fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
         }
+        jumpyBirb.getBatch().draw(arrowTexture, arrow.x, arrow.y, arrow.width, arrow.height);
 
         fontSmall.draw(jumpyBirb.getBatch(), "SCORE", 30f, 680);
         scoreFont.draw(jumpyBirb.getBatch(), String.valueOf(jumpyBirb.getScore()), 30f, 640f);
@@ -255,6 +266,7 @@ public class GameScreen implements Screen {
                 timeSinceLastSpawn = spawnInterval;
             }
         }
+
         if (movingPillarsEnabled) {
 
 
@@ -272,6 +284,65 @@ public class GameScreen implements Screen {
         else{
             Pillar.setPillarSpeed(3.33f);
         }
+        if(!difficultyChosen) {
+            moveArrow();
+            System.out.println(arrowValue);
+        }
+    }
+
+    private void moveArrow() {
+
+        if(arrowValue == 1 || arrowValue == 2){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+                arrowValue++;
+            }
+        }
+        if(arrowValue == 2 || arrowValue == 3){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+                arrowValue--;
+            }
+        }
+
+
+
+        switch (arrowValue) {
+            case 1:
+                arrow.y = difficultyButtons[0].y;
+                break;
+            case 2:
+                arrow.y = difficultyButtons[1].y;
+                break;
+            case 3:
+                arrow.y = difficultyButtons[2].y;
+                break;
+            default:
+                break;
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            switch (arrowValue) {
+                case 1:
+                    updateDifficultyFactor(0);
+                    currentDifficulty = difficultyButtonNames[0];
+                    break;
+                case 2:
+                    updateDifficultyFactor(1);
+                    currentDifficulty = difficultyButtonNames[1];
+                    break;
+                case 3:
+                    updateDifficultyFactor(2);
+                    currentDifficulty = difficultyButtonNames[2];
+
+                    break;
+                default:
+                    break;
+            }
+            handleButtonClick();
+            difficultyChosen = true;
+            arrow = new Rectangle();
+        }
+
+
     }
 
     private void decreaseSpawnInterval() {
@@ -409,14 +480,14 @@ public class GameScreen implements Screen {
             if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
                 updateDifficultyFactor(i);
                 currentDifficulty = difficultyButtonNames[i];
-                handleButtonClick(i);
+                handleButtonClick();
                 return true;
             }
         }
         return false;
     }
 
-    private void handleButtonClick(int clickedButtonIndex) {
+    private void handleButtonClick() {
         // Remove all buttons
         difficultyButtons = new Rectangle[0];
     }
