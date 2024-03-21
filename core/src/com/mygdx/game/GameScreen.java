@@ -478,6 +478,8 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < difficultyButtons.length; i++) {
             if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
+                difficultyChosen = true;
+                arrow = new Rectangle(); //Deletes arrow
                 updateDifficultyFactor(i);
                 currentDifficulty = difficultyButtonNames[i];
                 handleButtonClick();
