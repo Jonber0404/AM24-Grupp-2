@@ -15,4 +15,5 @@ public class GameInputProcessor extends InputAdapter {
         // Forward touch events to GameScreen
         return gameScreen.touchDown(screenX, screenY, pointer, button);
     }
+
 }

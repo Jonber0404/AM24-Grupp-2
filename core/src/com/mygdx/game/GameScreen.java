@@ -12,7 +12,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.sun.tools.javac.Main;
+import org.w3c.dom.Text;
 
+import javax.management.MBeanAttributeInfo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +46,13 @@ public class GameScreen implements Screen {
     private float difficultyFactor = 0;
     private boolean birdHasCollided = false;
 
+    float buttonWidth = 150;
+    float buttonHeight = 50;
+    float buttonSpacing = 10;
+    float totalHeight = (buttonHeight + buttonSpacing) * 1;
+    float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
+    float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
+
     private Texture arrowTexture;
     private Rectangle arrow;
     private int arrowValue = 2; //Mellan 1 och 3, 1 lätt 2 normal 3 svårt
@@ -55,30 +65,41 @@ public class GameScreen implements Screen {
     List<Grass> grassList = new ArrayList<>();
     Texture grassTexture = new Texture("grass.png");
 
+    //MENU STUFF
+    public enum GameState {
+        MAIN, HIGHSCORES, DIFFICULTYSELECTION, ABOUTTOPLAY, PLAYING, PAUSED, GAMEOVER;
+    }
+
+    GameState gameState = GameState.MAIN;
+
+    private Texture mainMenuButtonTexture;
+    private Rectangle[] mainMenuButtons;
+    private final String[] mainMenuButtonNames = {"START", "HIGHSCORES", "QUIT"};
+
 
     public GameScreen(JumpyBirb jumpyBirb) {
 
+        this.mainMenuButtonTexture = new Texture("difficultybutton.png"); //MIGHT NEED TO CHANGE LATER
+        mainMenuButtons = new Rectangle[3];
         this.difficultyButtonsTexture = new Texture("difficultybutton.png");
         difficultyButtons = new Rectangle[3];
-        float buttonWidth = 150;
-        float buttonHeight = 50;
-        float buttonSpacing = 10;
-        float totalHeight = (buttonHeight + buttonSpacing) * 1;
-        float startY = (SCREEN_CENTER_Y - totalHeight) / 2 + 80;
-        float buttonX = SCREEN_CENTER_X - buttonWidth / 2;
+
         fontSmall = TextUtil.generate("ARCADECLASSIC.TTF", 40, Color.WHITE, 2, Color.BLUE);
         scoreFont = TextUtil.generate("ARCADECLASSIC.TTF", 75, Color.WHITE, 3, Color.BLUE);
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump_sound_1.mp3"));
         this.arrowTexture = new Texture("Arrow.png");
 
 
-        // Set positions for buttons
-        for (int i = 0; i < difficultyButtons.length; i++) {
+        // Set positions for difficulty buttons
+     /*   for (int i = 0; i < difficultyButtons.length; i++) {
             difficultyButtons[i] = new Rectangle(buttonX, startY - i * (buttonHeight + buttonSpacing), buttonWidth, buttonHeight);
         }
-
+*/      //Positions for main menu buttons
+        for (int i = 0; i < mainMenuButtons.length; i++) {
+            mainMenuButtons[i] = new Rectangle(buttonX, startY - i * (buttonHeight + buttonSpacing), buttonWidth, buttonHeight);
+        }
         //Arrow start position
-        arrow = new Rectangle(difficultyButtons[1].x - 200, difficultyButtons[1].y, 150, 50);
+        arrow = new Rectangle(mainMenuButtons[1].x - 200, mainMenuButtons[1].y, 150, 50);
 
 
         this.jumpyBirb = jumpyBirb;
@@ -97,7 +118,7 @@ public class GameScreen implements Screen {
         this.underPillars = new Array<>();
 
         //   GRÄS
-        for (float i = 0; i < Gdx.graphics.getWidth() / grassTexture.getWidth() + 2; i+= 0.5) {
+        for (float i = 0; i < Gdx.graphics.getWidth() / grassTexture.getWidth() + 2; i += 0.5) {
             grassList.add(new Grass(i * grassTexture.getWidth(), 0, 100, grassTexture)); // Y-positionen kan ändras beroende på var du vill placera gräset
         }
         // GRÄS
@@ -106,6 +127,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+
+        // Set positions for difficulty buttons
+        if (gameState == GameState.DIFFICULTYSELECTION) {
+            for (int i = 0; i < difficultyButtons.length; i++) {
+                difficultyButtons[i] = new Rectangle(buttonX, startY - i * (buttonHeight + buttonSpacing), buttonWidth, buttonHeight);
+            }
+        }
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.bird.updateAnimations(Gdx.graphics.getDeltaTime());
 
@@ -125,7 +154,9 @@ public class GameScreen implements Screen {
         groundCollision();
 
         if (!birdHasCollided) {
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                //Change later to Gamestate ABOUTTOPLAY
                 bird.jump();
                 jumpSound.play();
             }
@@ -156,11 +187,24 @@ public class GameScreen implements Screen {
 
         bird.draw(jumpyBirb.getBatch());
 
-        for (int i = 0; i < difficultyButtons.length; i++) {
-            jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
-                    difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
-            fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
+        if (gameState == GameState.DIFFICULTYSELECTION) {
+
+                for (int i = 0; i < difficultyButtons.length; i++) {
+                    if (difficultyButtons[i] != null) {
+                        jumpyBirb.getBatch().draw(difficultyButtonsTexture, difficultyButtons[i].x,
+                                difficultyButtons[i].y, difficultyButtons[i].width, difficultyButtons[i].height);
+                        fontSmall.draw(jumpyBirb.getBatch(), difficultyButtonNames[i], difficultyButtons[i].x + 10, difficultyButtons[i].y + 30);
+                    }
+                }
         }
+
+        if (gameState == GameState.MAIN)
+            for (int i = 0; i < mainMenuButtons.length; i++) {
+                jumpyBirb.getBatch().draw(mainMenuButtonTexture, mainMenuButtons[i].x,
+                        mainMenuButtons[i].y, mainMenuButtons[i].width, mainMenuButtons[i].height);
+                fontSmall.draw(jumpyBirb.getBatch(), mainMenuButtonNames[i], mainMenuButtons[i].x + 10, mainMenuButtons[i].y + 30);
+            }
+
         jumpyBirb.getBatch().draw(arrowTexture, arrow.x, arrow.y, arrow.width, arrow.height);
 
         fontSmall.draw(jumpyBirb.getBatch(), "SCORE", 30f, 680);
@@ -259,8 +303,9 @@ public class GameScreen implements Screen {
     private void run() {
         if (bird.getIsGravityEnabled()) {
             bird.gravity();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+        } else if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && gameState == GameState.ABOUTTOPLAY) {
             if (difficultyFactor != 0) {
+                gameState = GameState.PLAYING;
                 bird.setGravityEnabled(true);  //this toggles gravity on from being off.
                 movingPillarsEnabled = !movingPillarsEnabled;     //this toggles the "pillars" from moving left.
                 timeSinceLastSpawn = spawnInterval;
@@ -268,7 +313,6 @@ public class GameScreen implements Screen {
         }
 
         if (movingPillarsEnabled) {
-
 
 
             timeSinceLastSpawn += Gdx.graphics.getDeltaTime();
@@ -280,66 +324,94 @@ public class GameScreen implements Screen {
                 timeSinceLastSpawn = 0;
 
             }
-        }
-        else{
+        } else {
             Pillar.setPillarSpeed(3.33f);
         }
-        if(!difficultyChosen) {
+        if (!difficultyChosen) {
             moveArrow();
-            System.out.println(arrowValue);
         }
     }
 
     private void moveArrow() {
 
-        if(arrowValue == 1 || arrowValue == 2){
-            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+        if (arrowValue == 1 || arrowValue == 2) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 arrowValue++;
+                System.out.println(arrowValue);
             }
         }
-        if(arrowValue == 2 || arrowValue == 3){
-            if(Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+        if (arrowValue == 2 || arrowValue == 3) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                 arrowValue--;
+                System.out.println(arrowValue);
             }
         }
-
 
 
         switch (arrowValue) {
             case 1:
-                arrow.y = difficultyButtons[0].y;
+                arrow.y = mainMenuButtons[0].y;
                 break;
             case 2:
-                arrow.y = difficultyButtons[1].y;
+                arrow.y = mainMenuButtons[1].y;
                 break;
             case 3:
-                arrow.y = difficultyButtons[2].y;
+                arrow.y = mainMenuButtons[2].y;
                 break;
             default:
                 break;
         }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            switch (arrowValue) {
-                case 1:
-                    updateDifficultyFactor(0);
-                    currentDifficulty = difficultyButtonNames[0];
-                    break;
-                case 2:
-                    updateDifficultyFactor(1);
-                    currentDifficulty = difficultyButtonNames[1];
-                    break;
-                case 3:
-                    updateDifficultyFactor(2);
-                    currentDifficulty = difficultyButtonNames[2];
-
-                    break;
-                default:
-                    break;
+        if (gameState == GameState.DIFFICULTYSELECTION) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                switch (arrowValue) {
+                    case 1:
+                        updateDifficultyFactor(0);
+                        currentDifficulty = difficultyButtonNames[0];
+                        gameState = GameState.ABOUTTOPLAY;
+                        break;
+                    case 2:
+                        updateDifficultyFactor(1);
+                        currentDifficulty = difficultyButtonNames[1];
+                        gameState = GameState.ABOUTTOPLAY;
+                        break;
+                    case 3:
+                        updateDifficultyFactor(2);
+                        currentDifficulty = difficultyButtonNames[2];
+                        gameState = GameState.ABOUTTOPLAY;
+                        break;
+                    default:
+                        break;
+                }
+                removeButtons(difficultyButtons);
+                difficultyChosen = true;
+                arrow = new Rectangle();
             }
-            handleButtonClick();
-            difficultyChosen = true;
-            arrow = new Rectangle();
+        }
+
+        if (gameState == GameState.MAIN) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ||
+                    Gdx.input.isKeyJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                switch (arrowValue) {
+                    case 1:
+                        System.out.println("Choose diff");
+                        gameState = GameState.DIFFICULTYSELECTION;
+                        break;
+                    case 2:
+                        System.out.println("See highscores");
+                        gameState = GameState.HIGHSCORES;
+                        break;
+                    case 3:
+                        System.out.println("Close game");
+                        dispose();
+                        Gdx.app.exit();
+                        break;
+                    default:
+                        break;
+
+                }
+
+                removeButtons(mainMenuButtons);
+            }
         }
 
 
@@ -467,6 +539,8 @@ public class GameScreen implements Screen {
         backgroundImage.dispose();
         bird.dispose();
         difficultyButtonsTexture.dispose();
+        mainMenuButtonTexture.dispose();
+        arrowTexture.dispose();
         fontSmall.dispose();
         scoreFont.dispose();
         jumpSound.dispose();
@@ -476,22 +550,57 @@ public class GameScreen implements Screen {
         Vector3 touchPoint = new Vector3(screenX, screenY, 0);
         jumpyBirb.getCamera().unproject(touchPoint);
 
-        for (int i = 0; i < difficultyButtons.length; i++) {
-            if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
-                difficultyChosen = true;
-                arrow = new Rectangle(); //Deletes arrow
-                updateDifficultyFactor(i);
-                currentDifficulty = difficultyButtonNames[i];
-                handleButtonClick();
-                return true;
+        if (gameState == GameState.DIFFICULTYSELECTION) {
+            for (int i = 0; i < difficultyButtons.length; i++) {
+                if (difficultyButtons[i].contains(touchPoint.x, touchPoint.y)) {
+                    System.out.println("Pressed on a difficulty button");
+                    difficultyChosen = true;
+
+                    updateDifficultyFactor(i);
+                    currentDifficulty = difficultyButtonNames[i];
+                    removeButtons(difficultyButtons);
+                    gameState = GameState.ABOUTTOPLAY;
+                    arrow = new Rectangle(); //Deletes arrow
+                    return true;
+                }
+            }
+        }
+        if (gameState == GameState.MAIN) {
+            for (int i = 0; i < mainMenuButtons.length; i++) {
+                if (mainMenuButtons[i].contains(touchPoint.x, touchPoint.y)) {
+                    if (gameState == GameState.MAIN) {
+                        switch (i) {
+                            case 0:
+                                System.out.println("Choose diff");
+                                gameState = GameState.DIFFICULTYSELECTION;
+                                break;
+                            case 1:
+                                System.out.println("See highscores");
+                                gameState = GameState.HIGHSCORES;
+                                break;
+                            case 2:
+                                System.out.println("Close game");
+                                dispose();
+                                Gdx.app.exit();
+                                break;
+                            default:
+                                break;
+
+                        }
+
+                        removeButtons(mainMenuButtons);
+                        return true;
+                    }
+                }
             }
         }
         return false;
     }
 
-    private void handleButtonClick() {
+
+    private void removeButtons(Rectangle[] buttons) {
         // Remove all buttons
-        difficultyButtons = new Rectangle[0];
+        buttons = new Rectangle[0];
     }
 
     private void updateDifficultyFactor(int i) {

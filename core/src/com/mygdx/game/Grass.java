@@ -23,7 +23,6 @@ public class Grass {
 
         if (x < -grassTexture.getWidth()) {
             // När gräset har rört sig helt utanför skärmen till vänster, flytta det till höger
-            System.out.println("Flyttat gräs");
             x = Gdx.graphics.getWidth();
         }
     }
